@@ -15,18 +15,14 @@ import javax.swing.JMenuItem;  //这是 菜单项类
 
 
 //用于**单人游戏**时构建棋盘
-public class ChessboardConstructer1 implements ActionListener{
-    private static JFrame frame=new JFrame();
-
-    public static JFrame getJFrame() {return frame;
-    }
-
+public class ChessboardConstructer1  implements ActionListener,Chessboard{
 
     //用于测试ChessboardConstructer1
     public static void main(String[] args){
         new ChessboardConstructer1();
     }
 
+    JFrame frame = new JFrame();
     ImageIcon bannerIcon = new ImageIcon("banner.png");
     ImageIcon guessIcon = new ImageIcon("guess.png");
     ImageIcon bombIcon = new ImageIcon("bomb.png");
@@ -34,20 +30,22 @@ public class ChessboardConstructer1 implements ActionListener{
     ImageIcon winIcon = new ImageIcon("win.png");
     ImageIcon winFlagIcon = new ImageIcon("win_flag.png");
     ImageIcon Flag1 = new ImageIcon("1.png");
+    ImageIcon flag = new ImageIcon("flag.png");
 
-//        int ROW = GameStat.maprow;
+    //    int ROW = GameStat.maprow;
 //    int COL = GameStat.mapcolumn;
-    int ROW = 5;
-    int COL = 5;
+    int ROW = 9;
+    int COL = 9;
     int[][] data = new int[ROW][COL];//存放数据
     JButton[][] btns = new JButton[ROW][COL];
-//        int LEICOUNT = GameStat.maplei; //雷的数量
-    int LEICOUNT = 8;
+    //    int LEICOUNT = GameStat.maplei; //雷的数量
+    int LEICOUNT = 4;
     int LEICODE = -1;  //表示是雷
     int unopened = ROW * COL; //未开格子数
     int opened = 0; //已开格子数
     int seconds = 0; //时钟计数
     Boolean firstClick = true;//表示本次点击是否为首次点击
+    int[][] buttonStat = new int[ROW][COL]; // 用以表示该格是否被插上旗子 1为插上了，0为没有插上
 
     JButton bannerBtn = new JButton(bannerIcon);
     JLabel label1 = new JLabel("待开：" + unopened);
@@ -140,6 +138,7 @@ public class ChessboardConstructer1 implements ActionListener{
 
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
+                buttonStat[i][j] = 0;
                 JButton btn = new JButton(guessIcon);
                 btn.setMargin(new Insets(0,0,0,0));
                 btn.addMouseListener(new MouseAdapter() {
@@ -175,36 +174,48 @@ public class ChessboardConstructer1 implements ActionListener{
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 if(btn.equals(btns[i][j])) {
+                    //如果该格子已被插上旗子，则直接返回不做任何动作
+                    if(buttonStat[i][j] == 1)
+                        return;
                     //3.2避免首发触雷
-                    if(firstClick && data[i][j] == LEICODE){
-                        for (int m = 0; m < ROW; m++) {
-                            for (int n = 0; n < COL; n++) {
-                                data[m][n] = 0;
-                                btns[m][n].setBackground(new Color(244,183,113));
-                                btns[m][n].setEnabled(true);
-                                btns[m][n].setText("");
-                                btns[m][n].setIcon(guessIcon);
+                    if(firstClick == true && data[i][j] == LEICODE){
+                        data[i][j] = 0;
+                        Random rand = new Random();
+                        for (Boolean flag = false; !flag; ) {
+                            int r = rand.nextInt(ROW);
+                            int c = rand.nextInt(COL);
+                            if(data[r][c] != LEICODE) {
+                                data[r][c] = LEICODE;
+                                flag = true;
                             }
                         }
-                        //状态栏恢复
-                        unopened = ROW * COL;
-                        opened = 0;
-                        seconds = 0;
-                        label1.setText("待开：" + unopened);
-                        label2.setText("已开：" + opened);
-                        label3.setText("用时：" + seconds + "s");
-                        //重新启动！但此时不需重新开始计时
-                        addLei();
-//                    timer.start();
-                        continue;
-                    }else{
-                        firstClick = false;
+                        //重新计算周围雷的数量
+                        for (int m = 0; m < ROW; m++) {
+                            for (int n = 0; n < COL; n++) {
+                                int tempCount = 0;
+                                if (m>0 && n>0 && data[m-1][n-1] == LEICODE) tempCount++;
+                                if (m>0 && data[m-1][n] == LEICODE) tempCount++;
+                                if (m>0 && n<COL-1 && data[m-1][n+1] == LEICODE) tempCount++;
+                                if (n>0 && data[m][n-1] ==  LEICODE) tempCount++;
+                                if (n<COL-1 && data[m][n+1] == LEICODE) tempCount++;
+                                if (m<ROW-1 && n>0 && data[m+1][n-1] == LEICODE) tempCount++;
+                                if (m<ROW-1 && data[m+1][n] == LEICODE) tempCount++;
+                                if (m<ROW-1 && n<COL-1 && data[m+1][n+1] == LEICODE) tempCount++;
+                                //3.1避免过度密集 内方法为重新构建埋雷
+                                if(data[m][n] == LEICODE && tempCount == 8){
+                                    readd();
+                                    return;
+                                }else if(data[m][n] == LEICODE)
+                                    continue;
+                                data[m][n] = tempCount;
+                            }
+                        }
                     }
-
                     //正常的展开
                     if(data[i][j] == LEICODE) {
                         lose();
                     } else {
+                        firstClick = false;
                         openCell(i, j);
                         checkWin();
                     }
@@ -217,6 +228,23 @@ public class ChessboardConstructer1 implements ActionListener{
     //右键雷区时所做的操作
     private void rightClicked(JButton btn) {
         System.out.println("右键点击");
+        for(int i = 0;i < ROW;i++){
+            for(int j = 0;j< COL;j++){
+                if(btn.equals(btns[i][j])){
+                    if(buttonStat[i][j] == 0){
+                        buttonStat[i][j] = 1;
+                        Image temp = flag.getImage().getScaledInstance(btn.getWidth(),btn.getHeight(),flag.getImage().SCALE_DEFAULT);
+                        flag = new ImageIcon(temp);
+                        btn.setIcon(flag);
+                        btn.setMargin(new Insets(0,0,0,0));
+                    }else if(buttonStat[i][j] == 1){
+                        buttonStat[i][j] = 0;
+                        btn.setIcon(guessIcon);
+                        btn.setMargin(new Insets(0,0,0,0));
+                    }
+                }
+            }
+        }
     }
 
     //设置头部的Banner以及状态栏的布局和控件
@@ -316,8 +344,7 @@ public class ChessboardConstructer1 implements ActionListener{
                 }
             }
         }
-       new losepanel();
-
+        new losepanel();
     }
 
     //打开格子的处理
@@ -365,6 +392,7 @@ public class ChessboardConstructer1 implements ActionListener{
         //恢复了数据和按钮
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
+                buttonStat[i][j] = 0;
                 data[i][j] = 0;
                 btns[i][j].setBackground(new Color(244,183,113));
                 btns[i][j].setEnabled(true);
@@ -420,37 +448,3 @@ public class ChessboardConstructer1 implements ActionListener{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
