@@ -48,7 +48,7 @@ public class login {
         fieldPanel.add(username);
         fieldPanel.add(password);
         c.add(fieldPanel, "Center");
-
+//ygu
         /*按钮部分--South*/
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
