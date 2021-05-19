@@ -39,6 +39,7 @@ public class ChessboardConstructer1  implements ActionListener,Chessboard{
     ImageIcon Flag1 = new ImageIcon("1.png");
     ImageIcon flag = new ImageIcon("flag.png");
 
+
     //    int ROW = GameStat.maprow;
 //    int COL = GameStat.mapcolumn;
     int ROW = 9;

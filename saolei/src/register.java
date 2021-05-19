@@ -7,10 +7,12 @@ import static java.lang.Character.isDigit;
 
 
 public class register extends JFrame {
-    private JPanel r=new JPanel(new GridLayout(3,1));
+    private JPanel r=new JPanel(new GridLayout(5,1));
     private JPanel r2=new JPanel(new GridLayout(1,2));
     private JPanel r3=new JPanel(new GridLayout(1,2));
-
+    private JPanel r4=new JPanel(new GridLayout());
+    private JPanel r5=new JPanel(new GridLayout());
+    private JPanel r6=new JPanel(new GridLayout(1,1));
     private JLabel putname=new JLabel("请输入你的账户");
     private JTextField writename=new JTextField();
 
@@ -18,22 +20,36 @@ public class register extends JFrame {
     private JLabel putnum=new JLabel("请输入六位数字密码");
     private JTextField writenum=new JTextField();
 
-
     private JButton OK=new JButton("确认");
-
+    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\saolei\\zhangwei.jpeg").getImage());
 
 
     public register(){
         super("注册用户");
-        setBounds(300,200,400,200);
+        setBounds(300,200,500,325);
         //添加按钮
         r2.add(putname);
         r2.add(writename);
+        r6.add(OK);
+
+
 
         r3.add(putnum);
         r3.add(writenum);
 
-        r.add(r2); r.add(r3); r.add(OK);
+        r4.setVisible(false);
+        r5.setVisible(false);
+
+        r6.setOpaque(false);
+        r.setOpaque(false);
+        r2.setOpaque(false);
+        r3.setOpaque(false);
+        putnum.setOpaque(false);
+        writename.setOpaque(false);
+        writenum.setOpaque(false);
+        writenum.setOpaque(false);
+        OK.setOpaque(false);
+        r.add(r2);r.add(r4);  r.add(r3);  r.add(r5) ;r.add(r6);
 //“确认”按钮的监听器
         OK.addActionListener(e -> {
             //判断六位数组合理
@@ -67,7 +83,8 @@ public class register extends JFrame {
                 wrong.setVisible(true);
             }
         });
-        this.add(r);
+        bg.add(r);
+        this.add(bg);
         setVisible(true);
         setResizable(false);
     }

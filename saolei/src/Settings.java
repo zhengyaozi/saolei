@@ -2,13 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 class Settings<background> extends JFrame {
-    JPanel c = new JPanel(new GridLayout(4, 1));
-
+    JPanel c = new JPanel(new GridLayout(5, 1));
 
     private JPanel c1 = new JPanel(new GridLayout(1, 2));
     private JPanel c2 = new JPanel(new GridLayout(1, 4));
     private JPanel c3 = new JPanel(new GridLayout(3, 2));
-
+   private  JPanel c4= new  JPanel(new GridLayout());
     private JRadioButton dan = new JRadioButton("单人模式", true);
     private JRadioButton shuang = new JRadioButton("双人模式");
     private ButtonGroup playerCnt = new ButtonGroup();
@@ -26,20 +25,19 @@ class Settings<background> extends JFrame {
     private JLabel lei = new JLabel("你想要多少颗雷");
     private JTextField zdylei = new JTextField();
     private JButton finishbtn = new JButton("开始游戏吧");
-//    ImageIcon  background = new  ImageIcon("C:\\Users\\zqlwcldzz\\Desktop\\projet picture\\chessbroad.jpeg");
-BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\Desktop\\projet picture\\chessbroad.jpeg").getImage());
+
+BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\saolei\\chessbroad.jpeg").getImage());
     public Settings() {
 
-        super("");
-        setBounds(300,200,400,300);
-//        JLabel jl = new JLabel(background);
-//        jl.setBounds(0,0,400,300);
-
-//        this.getLayeredPane().add(jl);
-        //添加按钮
-
+        super("游戏设置");
+        setBounds(300,200,400,500);
+        dan.setOpaque(false);
+        shuang.setOpaque(false);
         easybtn.setOpaque(false);
-
+        middlebtn.setOpaque(false);
+        diffbtn.setOpaque(false);
+        byyourself.setOpaque(false);
+        finishbtn.setOpaque(false);
 
         playerCnt.add(dan);
         playerCnt.add(shuang);
@@ -67,10 +65,11 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\Desk
         c3.add(zdylei);
         c3.setVisible(false);
         c3.setOpaque(false);
-
+        c4.setVisible(false);
         c.add(c1);
         c.add(c2);
         c.add(c3);
+        c.add(c4);
         c.add(finishbtn);
         c.setOpaque(false);
 

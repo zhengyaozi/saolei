@@ -15,6 +15,7 @@ public class login {
     private JButton okbtn = new JButton("OK");
     private JButton cancelbtn = new JButton("cancel");
     private JButton regist =new JButton("注册账号");
+
     public login() {
         //设置窗体的位置及大小
         jFrame.setBounds(600, 200, 300, 220);
@@ -56,6 +57,7 @@ public class login {
         buttonPanel.add(cancelbtn);
         buttonPanel.add(regist);
         c.add(buttonPanel, "South");
+
     }
     public void listerner() {
         //确认按下去获取
