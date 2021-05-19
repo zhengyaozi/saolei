@@ -22,7 +22,7 @@ public class ChessboardConstructer1  implements ActionListener,Chessboard{
     public static JFrame getJFrame() {
         return frame;
     }
-
+//
 
     //用于测试ChessboardConstructer1
     public static void main(String[] args){
