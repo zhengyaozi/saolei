@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;  //这是 菜单项类
 //用于**单人游戏**时构建棋盘
 public class ChessboardConstructer1  implements ActionListener,Chessboard{
 
-    private static JFrame frame=new JFrame();;
+    private static JFrame frame=new JFrame();
 
     public static JFrame getJFrame() {
         return frame;
