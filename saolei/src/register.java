@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.sun.org.apache.xerces.internal.impl.dv.xs.TypeValidator.isDigit;
+import static java.lang.Character.isDigit;
+
 
 public class register extends JFrame {
     private JPanel r=new JPanel(new GridLayout(3,1));
