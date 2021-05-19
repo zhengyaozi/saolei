@@ -104,7 +104,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\Idea
                         GameStat.mapcolumn = Integer.parseInt(zdycolumn.getText());
                         GameStat.maprow = Integer.parseInt(zdyrow.getText());
                         GameStat.maplei = Integer.parseInt(zdyrow.getText());
-                        new ChessboardConstructer1();
+                       new begingame();
                         Settings.this.dispose();
 
                     }
@@ -117,7 +117,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\Idea
     }
 
     public static void main(String[] args) {
-        new Settings();
+       new Settings() ;
     }
 
 }

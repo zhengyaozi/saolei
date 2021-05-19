@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -15,9 +16,9 @@ import javax.swing.JMenuItem;  //这是 菜单项类
 
 
 //用于**单人游戏**时构建棋盘
-public class ChessboardConstructer1  implements ActionListener,Chessboard{
+public class ChessboardConstructer1  implements ActionListener,Chessboard, Serializable {
 
-    private static JFrame frame=new JFrame();
+    public static JFrame frame=new JFrame();
 
     public static JFrame getJFrame() {
         return frame;
@@ -40,14 +41,14 @@ public class ChessboardConstructer1  implements ActionListener,Chessboard{
     ImageIcon flag = new ImageIcon("flag.png");
 
 
-        int ROW = GameStat.maprow;
-    int COL = GameStat.mapcolumn;
-//    int ROW = 9;
-//    int COL = 9;
+//        int ROW = GameStat.maprow;
+//    int COL = GameStat.mapcolumn;
+    int ROW = 9;
+    int COL = 9;
     int[][] data = new int[ROW][COL];//存放数据
     JButton[][] btns = new JButton[ROW][COL];
-        int LEICOUNT = GameStat.maplei; //雷的数量
-//    int LEICOUNT = 4;
+//        int LEICOUNT = GameStat.maplei; //雷的数量
+    int LEICOUNT = 4;
     int LEICODE = -1;  //表示是雷
     int unopened = ROW * COL; //未开格子数
     int opened = 0; //已开格子数
