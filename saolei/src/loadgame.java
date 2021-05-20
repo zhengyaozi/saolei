@@ -10,9 +10,7 @@ public class loadgame {
         ObjectInputStream ois=new ObjectInputStream(new FileInputStream("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\oos.txt"));
         Object obj=ois.readObject();
         ChessboardConstructer1 lgame=(ChessboardConstructer1)obj;
-           JFrame f= lgame.getJFrame();
-           f.setVisible(true);
-        System.out.println(f.getSize());
+
         ois.close();
     }
 

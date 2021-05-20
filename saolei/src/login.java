@@ -72,7 +72,7 @@ public class login {
                 wrong.setVisible(true);
                 wrong.setContentPane(new JLabel("账号不存在或存在非法字符，请输入正确的字符或注册账号"));
             }else{
-                new Settings();
+                new intergame();
             }
         });
         //取消按下去清空

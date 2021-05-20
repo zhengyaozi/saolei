@@ -24,7 +24,7 @@ private   JPanel losepanel=new JPanel(new GridLayout(2,1));
             losepanel.add(j2);
      returnboard.addActionListener(e -> this.dispatchEvent(new WindowEvent(this,WindowEvent.WINDOW_CLOSING) ));
           returnsettings.addActionListener(e -> {
-      ChessboardConstructer1.getJFrame().dispose();
+     ChessboardConstructer1.getJFrame().dispose();
               new Settings();
           });
 
