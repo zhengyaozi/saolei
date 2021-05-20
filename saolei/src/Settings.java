@@ -104,7 +104,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\Idea
                         GameStat.mapcolumn = Integer.parseInt(zdycolumn.getText());
                         GameStat.maprow = Integer.parseInt(zdyrow.getText());
                         GameStat.maplei = Integer.parseInt(zdyrow.getText());
-                       new begingame();
+                       new Settings();
                         Settings.this.dispose();
 
                     }
