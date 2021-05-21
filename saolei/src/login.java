@@ -70,6 +70,7 @@ public class login {
                 new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西", 3);
             }else{
                 new intergame();
+                jFrame.dispose();
             }
         });
         //取消按下去清空
