@@ -15,7 +15,7 @@ public class begingame {
         BEGIN.addActionListener(e -> {
             try {
                 new  savegame();
-            } catch (IOException ioException) {
+            } catch (IOException | ClassNotFoundException ioException) {
                 ioException.printStackTrace();
             }
         });
