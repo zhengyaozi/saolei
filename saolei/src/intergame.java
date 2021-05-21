@@ -14,7 +14,7 @@ public class intergame extends JFrame {
     private JButton beginnew=new JButton("开始新的游戏");
     private JButton loadold=new JButton("读取存档");
     private  JButton setsound=new JButton("声音设置");
-    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\saolei\\loadpicture.jpeg").getImage());
+    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("loadpicture.jpeg").getImage());
 
     public  intergame(){
         super("请选择");

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class loadgame {
 
     public loadgame() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois1=new ObjectInputStream(new FileInputStream("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\oos.txt"));
+        ObjectInputStream ois1=new ObjectInputStream(new FileInputStream("oos.txt"));
 
        ArrayList<ChessboardConstructer1> lgame=(ArrayList<ChessboardConstructer1>)ois1.readObject();
         ois1.close();

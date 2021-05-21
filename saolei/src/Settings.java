@@ -26,7 +26,7 @@ class Settings<background> extends JFrame {
     private JTextField zdylei = new JTextField();
     private JButton finishbtn = new JButton("开始游戏吧");
 
-BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\saolei\\chessbroad.jpeg").getImage());
+BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage());
     public Settings() {
 
         super("游戏设置");

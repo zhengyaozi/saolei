@@ -21,7 +21,7 @@ public class register extends JFrame {
     private JTextField writenum=new JTextField();
 
     private JButton OK=new JButton("确认");
-    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\saolei\\zhangwei.jpeg").getImage());
+    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("zhangwei.jpeg").getImage());
 
 
     public register(){

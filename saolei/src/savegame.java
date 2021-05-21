@@ -3,12 +3,12 @@ import java.util.ArrayList;
 
 public class savegame {
     public savegame() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois=new ObjectInputStream(new FileInputStream("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\oos.txt"));
+        ObjectInputStream ois=new ObjectInputStream(new FileInputStream("oos.txt"));
         ArrayList<ChessboardConstructer1> oldchessbroad=(ArrayList<ChessboardConstructer1>)ois.readObject();
         ois.close();
         ArrayList<ChessboardConstructer1> loadchessbroad=oldchessbroad;
 
-        ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\oos.txt"));
+        ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("oos.txt"));
 
         loadchessbroad.add(begingame.game);
         oos.writeObject(loadchessbroad);

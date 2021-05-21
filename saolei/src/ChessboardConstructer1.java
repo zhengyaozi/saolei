@@ -92,6 +92,36 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
 
     }
 
+    public ChessboardConstructer1(Chessboard c){
+
+        int fraWidth = 12*COL+260;//frame的宽
+        int fraHeight = 12*ROW+460;//frame的高
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        frame.setLocation(0, 0);
+        float proportionW = screenWidth/fraWidth;
+        float proportionH = screenHeight/fraHeight;
+
+        modifyComponentSize(frame, proportionW,proportionH);
+        frame.toFront();
+        frame.setSize(12*COL+260, 12*ROW+460);
+        frame.setResizable(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        setHeader();
+
+        addLei();
+
+        setButtons();
+
+        timer.start();
+
+        frame.setVisible(true);
+
+    }
+
     //向数据数组中埋下雷
     private void addLei(){
         Random rand = new Random();
