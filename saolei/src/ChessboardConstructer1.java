@@ -41,14 +41,14 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
     ImageIcon flag = new ImageIcon("flag.png");
 
 
-        int ROW = GameStat.maprow;
-    int COL = GameStat.mapcolumn;
-//    int ROW = 9;
-//    int COL = 9;
+//        int ROW = GameStat.maprow;
+//    int COL = GameStat.mapcolumn;
+    int ROW = 9;
+    int COL = 9;
     int[][] data = new int[ROW][COL];//存放数据
     JButton[][] btns = new JButton[ROW][COL];
-        int LEICOUNT = GameStat.maplei; //雷的数量
-//    int LEICOUNT = 4;
+//        int LEICOUNT = GameStat.maplei; //雷的数量
+    int LEICOUNT = 4;
     int LEICODE = -1;  //表示是雷
     int unopened = ROW * COL; //未开格子数
     int opened = 0; //已开格子数
