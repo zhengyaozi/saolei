@@ -7,7 +7,7 @@ public class savegame {
         ArrayList<ChessboardConstructer1> oldchessbroad=(ArrayList<ChessboardConstructer1>)ois.readObject();
         ois.close();
         ArrayList<ChessboardConstructer1> loadchessbroad=oldchessbroad;
-//      ArrayList<ChessboardConstructer1> loadchessbroad=returngame();
+
         ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("C:\\Users\\zqlwcldzz\\IdeaProjects\\saolei\\oos.txt"));
 
         loadchessbroad.add(begingame.game);

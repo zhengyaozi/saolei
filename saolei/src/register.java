@@ -58,29 +58,20 @@ public class register extends JFrame {
                 //判断是否注册过账号
                 for (int i = 0; i < GameStat.passwd.size(); i++) {
                     if (writename.getText().equals(GameStat.user.get(i)) && writenum.getText().equals(GameStat.passwd.get(i))) {
-                        JFrame wrong = new JFrame("错误");
-                        wrong.setBounds(200, 20, 300, 100);
-                        wrong.setVisible(true);
-                        wrong.setContentPane(new JLabel("你已经注册过了账号，请返回登录界面"));
+                        new TimeDialog().showDialog(new JFrame(), "你已经注册了账号", 3);
                         result=false;
                         break;
                     }
                 }
                 //确认无误后弹出注册成功
                 if (result) {
-                    JFrame right = new JFrame("成功");
-                    right.setBounds(200, 20, 300, 100);
-                    right.setContentPane(new JLabel("注册成功，请返回登录界面进行登录"));
-                    right.setVisible(true);
+                    new TimeDialog().showDialog(new JFrame(), "注册成功！", 3);
                     GameStat.user.add(writename.getText());
                     GameStat.passwd.add(writenum.getText());
                 }
             } else {
                 //六位数组不合理弹出窗口
-                JFrame wrong = new JFrame("错误");
-                wrong.setBounds(200, 20, 300, 100);
-                wrong.setContentPane(new JLabel("你的输入有误，请输入正确的格式"));
-                wrong.setVisible(true);
+                new TimeDialog().showDialog(new JFrame(), "你的输入有误", 3);
             }
         });
         bg.add(r);

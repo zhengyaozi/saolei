@@ -67,10 +67,7 @@ public class login {
             for (int i = 0; i < GameStat.passwd.size(); i++) {
                 if (!username.getText().equals(GameStat.user.get(i)) || !password.getText().equals(GameStat.passwd.get(i))) {n++;}}
             if (n>=GameStat.passwd.size()){
-                JFrame wrong = new JFrame("错误");
-                wrong.setBounds(200, 20, 300, 100);
-                wrong.setVisible(true);
-                wrong.setContentPane(new JLabel("账号不存在或存在非法字符，请输入正确的字符或注册账号"));
+                new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西", 3);
             }else{
                 new intergame();
             }
