@@ -32,6 +32,8 @@ public class Player {
         }
 
         else {
+            Image smallPicture=GameStat.p2Icon.getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT);
+            GameStat.p2Icon.setImage(smallPicture);
             picture=GameStat.p2Icon;
             JLabel jl=new JLabel(picture);
             jl.setBounds(0,0,100,100);
