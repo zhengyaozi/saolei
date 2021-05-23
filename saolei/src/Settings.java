@@ -80,8 +80,6 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage
         //点击开始游戏按钮
         finishbtn.addActionListener(e -> {
             //传输数据
-            if(dan.isSelected()) GameStat.playerCnt = 1;
-            if (shuang.isSelected()) GameStat.playerCnt = 2;
             if (easybtn.isSelected()){ GameStat.mapcolumn=9;  GameStat.maprow=9; GameStat.maplei=10;}
             if (middlebtn.isSelected()){ GameStat.mapcolumn=16;  GameStat.maprow=16; GameStat.maplei=40;}
             if (diffbtn.isSelected()){ GameStat.mapcolumn=30;  GameStat.maprow=16; GameStat.maplei=99;}
@@ -104,13 +102,13 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage
                         GameStat.mapcolumn = Integer.parseInt(zdycolumn.getText());
                         GameStat.maprow = Integer.parseInt(zdyrow.getText());
                         GameStat.maplei = Integer.parseInt(zdyrow.getText());
-                       new Settings();
-                        Settings.this.dispose();
-
                     }
                 }
             }
-
+            if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
+                Settings.this.dispose();}
+            if (shuang.isSelected()){ GameStat.playerCnt = 2; new ChessboardConstructer2();
+                Settings.this.dispose();}
         });
 
         this.setVisible(true);
