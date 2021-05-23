@@ -17,14 +17,24 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int COL = GameStat.mapcolumn;
     int LEICOUNT =  GameStat.maplei;
     int LEICODE = -1;
+    int count = 0; //用于计算回合进程
+    Boolean firstClick = true;//该次点击是否为首次点击
 
-    int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为插旗 2为已开
+    //玩家分数相关
+    int p1grade = 0;//p1的成绩
+    int p2grade = 0;//p2的成绩
+    int p1mis = 0;//p1的失误
+    int p2mis = 0;//p2的失误
+
+    int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗
     JButton[][] btns = new JButton[GameStat.maprow][GameStat.mapcolumn];//承装雷区的所有按钮
 
+    //计时系统
     Timer timer = new Timer(1000,this); //用于计时
     int seconds = 0; //用于显示计时的秒数
     JLabel labelt = new JLabel("用时：" + seconds + "s"); //显示计时秒数的label
 
+    //图标管理
     ImageIcon Clicked = new ImageIcon("Clicked.png");
     ImageIcon Covered = new ImageIcon("Covered.png");
     ImageIcon Flag = new ImageIcon("FLag.jpg");
@@ -87,8 +97,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 Image image = Covered.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
-                btn.setIcon(smallIcon);//设置储时按钮icon
+                btn.setIcon(smallIcon);//设置初始按钮icon
                 btn.addActionListener(this); //不清楚有什么用
+                btns[i][j] = btn;
                 sweep.add(btn);//向Jpanel中添加按钮
             }
         }
@@ -104,7 +115,80 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //左键按钮时所作的操作
     private void leftClicked(JButton btn) {
+        System.out.println("左键1");
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if(btn.equals(btns[i][j])){
+                    //如果该旗子已开,则直接返回不做任何动作
+                    if(buttonStat[i][j] == 1)
+                        return;
+
+                    //避免首发触雷
+                    if(firstClick == true && data[i][j] == LEICODE){
+                        data[i][j] = 0;
+                        Random rand = new Random();
+                        for (Boolean flag = false; !flag; ) {
+                            int r = rand.nextInt(ROW);
+                            int c = rand.nextInt(COL);
+                            if(data[r][c] != LEICODE) {
+                                data[r][c] = LEICODE;
+                                flag = true;
+                            }
+                        }
+                        //重新计算周围雷的数量
+                        for (int m = 0; m < ROW; m++) {
+                            for (int n = 0; n < COL; n++) {
+                                int tempCount = 0;
+                                if (m>0 && n>0 && data[m-1][n-1] == LEICODE) tempCount++;
+                                if (m>0 && data[m-1][n] == LEICODE) tempCount++;
+                                if (m>0 && n<COL-1 && data[m-1][n+1] == LEICODE) tempCount++;
+                                if (n>0 && data[m][n-1] ==  LEICODE) tempCount++;
+                                if (n<COL-1 && data[m][n+1] == LEICODE) tempCount++;
+                                if (m<ROW-1 && n>0 && data[m+1][n-1] == LEICODE) tempCount++;
+                                if (m<ROW-1 && data[m+1][n] == LEICODE) tempCount++;
+                                if (m<ROW-1 && n<COL-1 && data[m+1][n+1] == LEICODE) tempCount++;
+                                //3.1避免过度密集 内方法为重新构建埋雷
+                                if(data[m][n] == LEICODE && tempCount == 8){
+                                    readd();
+                                    return;
+                                }else if(data[m][n] == LEICODE)
+                                    continue;
+                                data[m][n] = tempCount;
+                            }
+                        }
+                    }
+
+                    //正常的展开
+                    firstClick = false;
+                    openCell(i,j);
+                }
+            }
+        }
+
     }
+
+    //正常地 左键 展开格子
+    //判定回合进程，开到安全的格子则将其打开、开到雷则给对应玩家失误加1
+    private void openCell(int i,int j) {
+        JButton btn = btns[i][j];
+        if(!btn.isEnabled()) return; //按钮不可用直接返回
+        buttonStat[i][j] = 1;//无论怎样该格一定会被打开
+        //首先判定此次点击为哪位玩家的操作
+        if(count < GameStat.at){ //判定为玩家1的操作
+            if(data[i][j] == LEICODE){
+                Image image = mine.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+            }else{
+                Image image = Clicked.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+            }
+        }
+    }
+
     //右键按钮时所做的操作
     private void rightClicked(JButton btn) {
     }
