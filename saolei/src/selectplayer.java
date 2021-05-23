@@ -65,33 +65,36 @@ JButton finish1=new JButton("确认");
                GameStat.p1Icon = p1;
                new TimeDialog().showDialog(new JFrame(), "玩家一设置人物成功！", 2);
                new selectplayer2();
+               this.dispose();
            } });
         playerpicture2.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player1==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p2;
                 new TimeDialog().showDialog(new JFrame(), "玩家一设置人物成功！", 2);
                 new selectplayer2();
-
+                this.dispose();
             } });
 
         playerpicture3.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player1==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p3;
                 new TimeDialog().showDialog(new JFrame(), "玩家一设置人物成功！", 2);
                 new selectplayer2();
+                this.dispose();
             }  });
 
         playerpicture4.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player1==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p4;
                 new TimeDialog().showDialog(new JFrame(), "玩家一设置人物成功！", 2);
                 new selectplayer2();
+                this.dispose();
             }  });
 
         c.add(player1); c.add(selectpicture);
