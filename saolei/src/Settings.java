@@ -107,7 +107,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage
             }
             if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
-            if (shuang.isSelected()){ GameStat.playerCnt = 2; new ChessboardConstructer2();
+            if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
                 Settings.this.dispose();}
         });
 
