@@ -231,7 +231,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                         }
                     }else if(count < GameStat.at*2){//判定为玩家2的操作
                         if(data[i][j] == LEICODE){
-                            p1grade++;//玩家2插旗成功，积分加1
+                            p2grade++;//玩家2插旗成功，积分加1
                             Image image = Flag.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
