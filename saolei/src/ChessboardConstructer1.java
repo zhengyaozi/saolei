@@ -92,8 +92,8 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
 
     }
 
-    public ChessboardConstructer1(Chessboard c){
-
+    //用于读档的构造方法
+    public ChessboardConstructer1(ChessboardConstructer1 c){
         int fraWidth = 12*COL+260;//frame的宽
         int fraHeight = 12*ROW+460;//frame的高
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

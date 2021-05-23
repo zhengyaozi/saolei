@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 class GameStat {
@@ -7,5 +8,8 @@ class GameStat {
     public static int mapcolumn=10;
     public static int maprow=10;
     public static int maplei=1;
-
+    public static String player1 = "Luffy";
+    public static String player2 = "Marco";
+    public static ImageIcon p1Icon = new ImageIcon("Luffy.png");
+    public static ImageIcon p2Icon = new ImageIcon("Marco.png");
 }
