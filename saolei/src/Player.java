@@ -25,7 +25,7 @@ public class Player {
             GameStat.p1Icon.setImage(smallPicture);
             picture=GameStat.p1Icon;
             JLabel jl=new JLabel(picture);
-            jl.setBounds(0,0,100,100);
+            jl.setBounds(75,100,100,100);
             jl.setVisible(true);
             player.add(jl);
 
@@ -36,7 +36,7 @@ public class Player {
             GameStat.p2Icon.setImage(smallPicture);
             picture=GameStat.p2Icon;
             JLabel jl=new JLabel(picture);
-            jl.setBounds(0,0,100,100);
+            jl.setBounds(75,100,100,100);
             jl.setVisible(true);
             player.add(jl);
         }

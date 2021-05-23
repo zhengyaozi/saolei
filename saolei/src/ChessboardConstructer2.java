@@ -50,7 +50,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     //默认的构造方法
     public ChessboardConstructer2(){
         int width = GameStat.mapcolumn*30 + 500;
-        int height = GameStat.maprow*30 + 400;
+        int height = GameStat.maprow*30 + 200;
         this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
         this.setResizable(false);
         this.setLayout(null);
@@ -65,12 +65,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         //添加计时器、代开、已开的头部面板
         setHeader();
 
+        //玩家面板设置
         Player p1=new Player(GameStat.player1,GameStat.p1Icon);
-        JPanel p1Pane=p1.PlayPane(width,100,height,1);
-        Player p2=new Player(GameStat.player2, GameStat.p2Icon);
-        JPanel p2Pane=p2.PlayPane(width,100,height,2);
+        JPanel p1Pane=p1.PlayPane(width,250,height,1);
         p1Pane.setLocation(0,0);
-        p2Pane.setLocation(100,0);
+        Player p2=new Player(GameStat.player2, GameStat.p2Icon);
+        JPanel p2Pane=p2.PlayPane(width,250,height,2);
+        p2Pane.setLocation(width-250,0);
 
 
         //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
@@ -176,6 +177,20 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         //首先判定此次点击为哪位玩家的操作
         if(count < GameStat.at){ //判定为玩家1的操作
             if(data[i][j] == LEICODE){
+                p1mis++;//玩家1踩雷，失误数加1
+                Image image = mine.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+            }else{
+                Image image = Clicked.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+            }
+        }else if(count < GameStat.at*2){//判定为玩家2的操作
+            if(data[i][j] == LEICODE){
+                p1mis++;//玩家2踩雷，失误数加1
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
