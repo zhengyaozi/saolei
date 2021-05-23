@@ -170,13 +170,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //正常地 左键 展开格子
     //判定回合进程，开到安全的格子则将其打开、开到雷则给对应玩家失误加1
-    private void openCell(int i,int j) {
-        JButton btn = btns[i][j];
+    private void openCell(int r,int c) {
+        JButton btn = btns[r][c];
         if(!btn.isEnabled()) return; //按钮不可用直接返回
-        buttonStat[i][j] = 1;//无论怎样该格一定会被打开
+        buttonStat[r][c] = 1;//无论怎样该格一定会被打开
         //首先判定此次点击为哪位玩家的操作
         if(count < GameStat.at){ //判定为玩家1的操作
-            if(data[i][j] == LEICODE){
+            if(data[r][c] == LEICODE){
                 p1mis++;//玩家1踩雷，失误数加1
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
@@ -189,8 +189,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
             }
         }else if(count < GameStat.at*2){//判定为玩家2的操作
-            if(data[i][j] == LEICODE){
-                p1mis++;//玩家2踩雷，失误数加1
+            if(data[r][c] == LEICODE){
+                p2mis++;//玩家2踩雷，失误数加1
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
@@ -206,6 +206,46 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //右键按钮时所做的操作
     private void rightClicked(JButton btn) {
+        System.out.println("右键1");
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (btn.equals(btns[i][j])) {
+                    //如果该旗子已开或不可用,则直接返回不做任何动作
+                    if (buttonStat[i][j] == 1 || !btn.isEnabled())
+                        return;
+
+                    buttonStat[i][j] = 1;//无论怎样该格一定会被打开
+                    //首先判定此次点击为哪位玩家的操作
+                    if(count < GameStat.at){ //判定为玩家1的操作
+                        if(data[i][j] == LEICODE){
+                            p1grade++;//玩家1插旗成功，积分加1
+                            Image image = Flag.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                        }else{
+                            Image image = Clicked.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                        }
+                    }else if(count < GameStat.at*2){//判定为玩家2的操作
+                        if(data[i][j] == LEICODE){
+                            p1grade++;//玩家2插旗成功，积分加1
+                            Image image = Flag.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                        }else{
+                            Image image = Clicked.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void setHeader() {
