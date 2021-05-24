@@ -41,6 +41,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     ImageIcon mine = new ImageIcon("mine.png");
     ImageIcon seethrough = new ImageIcon("seethrough.png");
     ImageIcon sweeepbg = new ImageIcon("sweepbg.jpg");
+    ImageIcon n1 = new ImageIcon("1.png");
+    ImageIcon n2 = new ImageIcon("2.png");
+    ImageIcon n3 = new ImageIcon("3.png");
+    ImageIcon n4 = new ImageIcon("4.png");
+    ImageIcon n5 = new ImageIcon("5.png");
+    ImageIcon n6 = new ImageIcon("6.png");
+    ImageIcon n7 = new ImageIcon("7.png");
+    ImageIcon n8 = new ImageIcon("8.png");
 
 
     //用于测试ChessboardConstructer2
