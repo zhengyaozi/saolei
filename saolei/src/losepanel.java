@@ -14,7 +14,7 @@ private   JPanel losepanel=new JPanel(new GridLayout(2,1));
     JButton returnboard=new JButton("返回棋盘点击上方banner重新开始");
     JButton returnsettings=new JButton("返回模式选择");
 
-
+//
         public losepanel(){
             super("你没了");
             setBounds(300,200,500,200);
