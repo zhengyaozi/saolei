@@ -19,6 +19,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int count = 0; //用于计算回合进程
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
+    JButton restarter = new JButton();//重开一局的按钮
 
     //玩家分数相关
     public String player1 = GameStat.player1;
@@ -95,6 +96,17 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                                       }
         });
 
+        //重开按钮
+        restarter.setText("再来一局");
+        restarter.setBounds(250,50,100,50);
+        restarter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new ChessboardConstructer2();
+                dispose();//点击后关闭本窗口
+            }
+        });
 
         //对number进行操作；
         addMine();
@@ -187,6 +199,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);
+        this.add(restarter);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
