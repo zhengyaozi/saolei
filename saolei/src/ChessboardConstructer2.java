@@ -97,16 +97,31 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         JPanel p1Pane=p1.PlayPane(width,250,height,1);
         p1Pane.setLocation(0,0);
         //玩家1的得分和失误
-        JLabel p1Grade = new JLabel("玩家1的得分为 " + p1grade);
+        JLabel p1Grade = new JLabel("玩家1得分为 " + p1grade);
         p1Grade.setBounds(50,300,100,30);
         p1Grade.setForeground(new Color(71, 61, 50));
         p1Grade.setBackground(new Color(154, 228, 241));
         p1Grade.setOpaque(true);
+        JLabel p1mistake = new JLabel("玩家1失误为 " + p1mis);
+        p1mistake.setBounds(50,350,100,30);
+        p1mistake.setForeground(new Color(71, 61, 50));
+        p1mistake.setBackground(new Color(154, 228, 241));
+        p1mistake.setOpaque(true);
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
         p2Pane.setLocation(width-250,0);
-
+        //玩家2的得分和失误
+        JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
+        p2Grade.setBounds(width-150,300,100,30);
+        p2Grade.setForeground(new Color(71, 61, 50));
+        p2Grade.setBackground(new Color(154, 228, 241));
+        p2Grade.setOpaque(true);
+        JLabel p2mistake = new JLabel("玩家2失误为 " + p2mis);
+        p2mistake.setBounds(width-150,350,100,30);
+        p2mistake.setForeground(new Color(71, 61, 50));
+        p2mistake.setBackground(new Color(154, 228, 241));
+        p2mistake.setOpaque(true);
 
 
         //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
@@ -151,6 +166,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
         this.add(sweep);
         this.add(p1Grade);
+        this.add(p2Grade);
+        this.add(p1mistake);
+        this.add(p2mistake);
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);
@@ -225,6 +243,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         if(count < GameStat.at){ //判定为玩家1的操作
             if(data[r][c] == LEICODE){
                 p1mis++;//玩家1踩雷，失误数加1
+
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
@@ -410,7 +429,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     else if (buttonStat[i][j] == 0) {//按钮处于未开状态
                         buttonStat[i][j] = 2;//将按钮状态变为作弊中
                         if (data[i][j] == LEICODE) {
-                            Image image = mine.getImage();
+                            Image image = seethrough.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btns[i][j].setIcon(smallIcon);//设置按钮icon为暴雷图标
