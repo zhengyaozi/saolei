@@ -200,9 +200,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(p2Pane);
         this.add(cheatbtn);
         this.add(restarter);
+        this.add(labelt);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
+        timer.start();
 
         this.setVisible(true);
     }
@@ -249,6 +251,19 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 cheat();
             }
         });
+
+        //重开按钮
+        restarter.setText("再来一局");
+        restarter.setBounds(250,50,100,50);
+        restarter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new ChessboardConstructer2();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
         //添加计时器、代开、已开的头部面板
         setHeader();
 
@@ -308,9 +323,12 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);
+        this.add(restarter);
+        this.add(labelt);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
+        timer.start();
 
         this.setVisible(true);
 
@@ -558,7 +576,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     }
 
     private void setHeader() {
-        JPanel panel = new JPanel(new GridBagLayout());
+        labelt.setBounds(0,0,100,50);
 
         //待编写，将代开已开以及计时加入整个面板
     }
