@@ -40,7 +40,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     ImageIcon Flag = new ImageIcon("FLag.jpg");
     ImageIcon mine = new ImageIcon("mine.png");
     ImageIcon seethrough = new ImageIcon("seethrough.png");
-    ImageIcon sweeepbg = new ImageIcon("sweepbg.jpg");
 
 
     //用于测试ChessboardConstructer2
@@ -75,7 +74,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p2Pane.setLocation(width-250,0);
 
 
-
         //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
         for(int i=0;i<GameStat.maprow;i++){
             for(int j=0;j<GameStat.mapcolumn;j++){
@@ -107,21 +105,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         }
 
-        //背景图片加入
-        Image image = sweeepbg.getImage();
-        Image smallImage = image.getScaledInstance(width,height,Image.SCALE_DEFAULT);
-        ImageIcon smallIcon = new ImageIcon(smallImage);
-        JLabel bgLabel = new JLabel(smallIcon);//背景的Label
-        bgLabel.setBounds(0,0,width,height);//设置背景Label的位置和大小
-        Container contain = this.getContentPane();
 
 
         this.add(sweep);
         this.add(p1Pane);
         this.add(p2Pane);
-        this.add(bgLabel);
-
-        this.setTitle("双人对战扫雷");
 
         this.setVisible(true);
     }

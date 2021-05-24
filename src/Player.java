@@ -40,7 +40,7 @@ public class Player {
             jl.setVisible(true);
             player.add(jl);
         }
-        player.setOpaque(false);
+
         player.setVisible(true);
         return player;
     }
