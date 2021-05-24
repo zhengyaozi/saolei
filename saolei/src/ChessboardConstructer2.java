@@ -11,10 +11,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
-    JButton[][] button=new JButton[GameStat.mapcolumn][GameStat.maprow];
     int[][] data = new int[GameStat.mapcolumn][GameStat.maprow];
-    public static int n=4;
-    public static int plusN=0;
     int ROW = GameStat.maprow;
     int COL = GameStat.mapcolumn;
     int LEICOUNT =  GameStat.maplei;
@@ -24,6 +21,10 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int unopened = LEICOUNT;//未打开的雷的数量
 
     //玩家分数相关
+    public String player1 = GameStat.player1;
+    public String player2 = GameStat.player2;
+    public ImageIcon p1Icon = GameStat.p1Icon;
+    public ImageIcon p2Icon = GameStat.p2Icon;
     public int p1grade = 0;//p1的成绩
     public int p2grade = 0;//p2的成绩
     public int p1mis = 0;//p1的失误
@@ -192,6 +193,116 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
         this.setVisible(true);
     }
+    //存档构造方法
+    public ChessboardConstructer2(ChessboardConstructer2 b){
+        GameStat.maprow = b.ROW;
+        GameStat.mapcolumn = b.COL;
+        GameStat.maplei = b.LEICOUNT;
+        GameStat.player1 = b.player1;
+        GameStat.player2 = b.player2;
+        GameStat.p1Icon = b.p1Icon;
+        GameStat.p2Icon = b.p2Icon;
+        this.boardName = b.boardName;
+        this.count = b.count;
+        for(int i = 0;i < GameStat.maprow;i++){
+            for(int j = 0;j < GameStat.mapcolumn;j++){
+                this.data[i][j] = b.data[i][j];
+                this.btns[i][j] = b.btns[i][j];
+                this.buttonStat[i][j] = b.buttonStat[i][j];
+            }
+        }
+
+        int width = GameStat.mapcolumn*30 + 500;
+        int height = GameStat.maprow*30 + 200;
+        this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
+        this.setResizable(false);
+        this.setLayout(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
+        sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
+
+        //作弊按钮
+        cheatbtn.setBorder(BorderFactory.createRaisedBevelBorder());
+        Image cheatImage = cheatIcon.getImage();
+        Image cheatSmallImage = cheatImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+        ImageIcon cheatSmallIcon = new ImageIcon(cheatSmallImage);
+        cheatbtn.setIcon(cheatSmallIcon);//设置作弊按钮icon
+        cheatbtn.setBounds((width-30)/2,90,30,30);
+        cheatbtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cheat();
+            }
+        });
+        //添加计时器、代开、已开的头部面板
+        setHeader();
+
+        //玩家面板设置
+        Player p1=new Player(GameStat.player1,GameStat.p1Icon);
+        JPanel p1Pane=p1.PlayPane(width,250,height,1);
+        p1Pane.setLocation(0,0);
+        //玩家1的得分和失误
+        p1Grade.setBounds(50,300,100,30);
+        p1Grade.setForeground(new Color(71, 61, 50));
+        p1Grade.setBackground(new Color(154, 228, 241));
+        p1Grade.setOpaque(true);
+        p1mistake.setBounds(50,350,100,30);
+        p1mistake.setForeground(new Color(71, 61, 50));
+        p1mistake.setBackground(new Color(154, 228, 241));
+        p1mistake.setOpaque(true);
+
+        Player p2=new Player(GameStat.player2, GameStat.p2Icon);
+        JPanel p2Pane=p2.PlayPane(width,250,height,2);
+        p2Pane.setLocation(width-250,0);
+        //玩家2的得分和失误
+        p2Grade.setBounds(width-150,300,100,30);
+        p2Grade.setForeground(new Color(71, 61, 50));
+        p2Grade.setBackground(new Color(154, 228, 241));
+        p2Grade.setOpaque(true);
+        p2mistake.setBounds(width-150,350,100,30);
+        p2mistake.setForeground(new Color(71, 61, 50));
+        p2mistake.setBackground(new Color(154, 228, 241));
+        p2mistake.setOpaque(true);
+
+        //回合指示器硬币
+        Image coinImage = coin.getImage();
+        Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+        ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+        coinLabel.setIcon(coinSmallIcon);//设置金币icon
+        if(this.count < GameStat.at){
+            coinLabel.setBounds(200,250,30,30);
+        }else if(this.count < GameStat.at*2){
+            coinLabel.setBounds(this.getWidth()-230,250,30,30);
+        }
+
+        //背景图片加入
+        Image image = sweeepbg.getImage();
+        Image smallImage = image.getScaledInstance(width,height,Image.SCALE_DEFAULT);
+        ImageIcon smallIcon = new ImageIcon(smallImage);
+        JLabel bgLabel = new JLabel(smallIcon);//背景的Label
+        bgLabel.setBounds(0,0,width,height);//设置背景Label的位置和大小
+        Container contain = this.getContentPane();
+
+
+        this.add(sweep);
+        this.add(p1Grade);
+        this.add(p2Grade);
+        this.add(p1mistake);
+        this.add(p2mistake);
+        this.add(coinLabel);
+        this.add(p1Pane);
+        this.add(p2Pane);
+        this.add(cheatbtn);
+        this.add(bgLabel);
+
+        this.setTitle("双人对战扫雷");
+
+        this.setVisible(true);
+
+    }
+
 
     //左键按钮时所作的操作
     private void leftClicked(JButton btn) {
@@ -375,11 +486,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     //每次开出雷后检查是否胜利
     private void checkWin() {
         if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade)) {//p1获胜
-
+            new WinPanel(GameStat.player1,GameStat.p1Icon);
         }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade)){//p2获胜
-
+            new WinPanel(GameStat.player2,GameStat.p2Icon);
         }else if(unopened == 0 && p1grade == p2grade){//平局
-
+            new WinPanel();
         }
     }
 

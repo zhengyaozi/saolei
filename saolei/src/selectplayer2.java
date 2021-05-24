@@ -90,7 +90,7 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p4;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                new ChessboardConstructer2();
+                new ChessboardConstructer2() ;
                 this.dispose();
             }  });
 
