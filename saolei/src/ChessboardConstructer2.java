@@ -25,8 +25,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int p2grade = 0;//p2的成绩
     int p1mis = 0;//p1的失误
     int p2mis = 0;//p2的失误
-
-    int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗
+    JButton cheatbtn = new JButton();
+    Boolean cheatStat = false;//此时是否处在作弊状态
+    int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗 2为处于透视状态
     JButton[][] btns = new JButton[GameStat.maprow][GameStat.mapcolumn];//承装雷区的所有按钮
 
     //计时系统
@@ -49,6 +50,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     ImageIcon n6 = new ImageIcon("6.png");
     ImageIcon n7 = new ImageIcon("7.png");
     ImageIcon n8 = new ImageIcon("8.png");
+    ImageIcon cheatIcon = new ImageIcon("cheat.jpg");
 
 
     //用于测试ChessboardConstructer2
@@ -67,6 +69,21 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
         JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
+
+        //作弊按钮
+        Image cheatImage = cheatIcon.getImage();
+        Image cheatSmallImage = cheatImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+        ImageIcon cheatSmallIcon = new ImageIcon(cheatSmallImage);
+        cheatbtn.setIcon(cheatSmallIcon);//设置作弊按钮icon
+        cheatbtn.setBounds((width-30)/2,90,30,30);
+        cheatbtn.addMouseListener(new MouseAdapter() {
+                                      @Override
+                                      public void mouseClicked(MouseEvent e) {
+                                          super.mouseClicked(e);
+                                          cheat();
+                                      }
+        });
+
 
         //对number进行操作；
         addMine();
@@ -127,6 +144,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(sweep);
         this.add(p1Pane);
         this.add(p2Pane);
+        this.add(cheatbtn);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
@@ -202,6 +220,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+
             }else{
                 openNum(btn,data[r][c]);
             }
@@ -367,6 +386,48 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             labelt.setText("用时：" + seconds + "s");
             timer.start();
             return;
+        }
+    }
+
+    private void cheat() {
+        //未作弊状态下，全部打开
+        if (!cheatStat) {
+            cheatStat = true;
+            for (int i = 0; i < GameStat.maprow; i++) {
+                for (int j = 0; j < GameStat.mapcolumn; j++) {
+                    //如果按钮为已开状态则跳过该方块的操作
+                    if (buttonStat[i][j] == 1)
+                        continue;
+                    else if (buttonStat[i][j] == 0) {//按钮处于未开状态
+                        buttonStat[i][j] = 2;//将按钮状态变为作弊中
+                        if (data[i][j] == LEICODE) {
+                            Image image = mine.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btns[i][j].setIcon(smallIcon);//设置按钮icon为暴雷图标
+
+                        } else {
+                            openNum(btns[i][j], data[i][j]);
+                        }
+                    }
+                }
+            }
+        } else if (cheatStat) {//已作弊状态下，将作弊方块打开
+            cheatStat = false;//将状态改为未作弊状态
+            for (int i = 0; i < GameStat.maprow; i++) {
+                for (int j = 0; j < GameStat.mapcolumn; j++) {
+                    //如果按钮为已开状态则跳过该方块的操作
+                    if (buttonStat[i][j] == 1)
+                        continue;
+                    else if (buttonStat[i][j] == 2) {//按钮处于作弊状态
+                        buttonStat[i][j] = 0;//将按钮状态变为未开
+                        Image image = Covered.getImage();
+                        Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                        ImageIcon smallIcon = new ImageIcon(smallImage);
+                        btns[i][j].setIcon(smallIcon);//设置按钮icon为暴雷图标
+                    }
+                }
+            }
         }
     }
 }
