@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class ChessboardConstructer2 extends JFrame implements ActionListener{
+    String boardName;
     private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -20,7 +21,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int LEICODE = -1;
     int count = 0; //用于计算回合进程
     Boolean firstClick = true;//该次点击是否为首次点击
-    String boardName;
+    int unopened = LEICOUNT;//未打开的雷的数量
 
     //玩家分数相关
     public int p1grade = 0;//p1的成绩
@@ -266,6 +267,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
             //展开操作
             if(data[r][c] == LEICODE){
+                unopened--;
                 p1mis++;//玩家1踩雷，失误数加1
                 p1grade--;//得分减一
                 p1mistake.setText("玩家1失误为 " + p1mis);
@@ -274,7 +276,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
-
+                checkWin();
             }else{
                 openNum(btn,data[r][c]);
             }
@@ -289,6 +291,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 count = 0;
             }
             if(data[r][c] == LEICODE){
+                unopened--;
                 p2mis++;//玩家2踩雷，失误数加1
                 p2grade--;
                 p2mistake.setText("玩家2失误为 " + p2mis);
@@ -297,6 +300,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                checkWin();
             }else{
                 openNum(btn,data[r][c]);
             }
@@ -325,12 +329,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                             coinLabel.setBounds(this.getWidth()-230,250,30,30);
                         }
                         if(data[i][j] == LEICODE){
+                            unopened--;
                             p1grade++;//玩家1插旗成功，积分加1
                             p1Grade.setText("玩家1得分为 " + p1grade);
                             Image image = Flag.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                            checkWin();
                         }else{
                             openNum(btn,data[i][j]);
                             p1mis++;//玩家1插旗错误，失误数加1
@@ -347,12 +353,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                             count = 0;
                         }
                         if(data[i][j] == LEICODE){
+                            unopened--;
                             p2grade++;//玩家2插旗成功，积分加1
                             p2Grade.setText("玩家2得分为 " + p2grade);
                             Image image = Flag.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                            checkWin();
                         }else{
                             openNum(btn,data[i][j]);
                             p2mis++;//玩家2插旗错误，失误数加1
@@ -361,6 +369,17 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     }
                 }
             }
+        }
+    }
+
+    //每次开出雷后检查是否胜利
+    private void checkWin() {
+        if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade)) {//p1获胜
+
+        }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade)){//p2获胜
+
+        }else if(unopened == 0 && p1grade == p2grade){//平局
+
         }
     }
 
