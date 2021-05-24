@@ -16,7 +16,7 @@ public class WinPanel extends JFrame implements ActionListener {
     JButton toSetting = new JButton();//返回设置界面
     JLabel words = new JLabel();
 
-    public static void main(String[] args) { new WinPanel(); } //测试入口
+    public static void main(String[] args) { new WinPanel("winner",GameStat.p1Icon); } //测试入口
 
     //平局构造方法
     public WinPanel(){
@@ -77,9 +77,59 @@ public class WinPanel extends JFrame implements ActionListener {
         this.add(player2Name);
         this.setVisible(true);
     }
-    //胜利构造方法
-    public WinPanel(String winner,ImageIcon winIcon){
 
+
+    //其中一方胜利构造方法
+    public WinPanel(String winner,ImageIcon winIcon){
+        int width = 600;
+        int height = 400;
+        this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
+        this.setResizable(false);
+        this.setLayout(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //设置顶头面板
+        words.setText(winner + "恭喜你胜利啦！！");
+        words.setBounds(300,150,200,50);
+        Image smallPicture=winIcon.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT);
+        winIcon.setImage(smallPicture);
+        p1Picture = new JLabel(winIcon);
+        p1Picture.setBounds(50,80,150,150);
+
+
+        //再来一局按钮
+        restart.setText("再来一局");
+        restart.setBounds(50,250,200,100);
+        restart.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new ChessboardConstructer2();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        //返回设置面板按钮
+        toSetting.setText("返回设置面板");
+        toSetting.setBounds(350,250,200,100);
+        toSetting.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new Settings();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        this.setTitle("比试结果");
+        this.add(restart);
+        this.add(toSetting);
+        this.add(words);
+        this.add(p1Picture);
+        this.add(p2Picture);
+        this.add(player1Name);
+        this.add(player2Name);
+        this.setVisible(true);
     }
 
     @Override
