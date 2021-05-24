@@ -20,6 +20,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int LEICODE = -1;
     int count = 0; //用于计算回合进程
     Boolean firstClick = true;//该次点击是否为首次点击
+    String boardName;
 
     //玩家分数相关
     public int p1grade = 0;//p1的成绩
@@ -30,6 +31,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean cheatStat = false;//此时是否处在作弊状态
     int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗 2为处于透视状态
     JButton[][] btns = new JButton[GameStat.maprow][GameStat.mapcolumn];//承装雷区的所有按钮
+    JLabel p1Grade = new JLabel("玩家1得分为 " + p1grade);
+    JLabel p1mistake = new JLabel("玩家1失误为 " + p1mis);
+    JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
+    JLabel p2mistake = new JLabel("玩家2失误为 " + p2mis);
+    JLabel coinLabel = new JLabel();
 
     //计时系统
     Timer timer = new Timer(1000,this); //用于计时
@@ -52,6 +58,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     ImageIcon n7 = new ImageIcon("7.png");
     ImageIcon n8 = new ImageIcon("8.png");
     ImageIcon cheatIcon = new ImageIcon("cheat.jpg");
+    ImageIcon coin = new ImageIcon("coin.jpg");
 
 
     //用于测试ChessboardConstructer2
@@ -72,6 +79,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
 
         //作弊按钮
+        cheatbtn.setBorder(BorderFactory.createRaisedBevelBorder());
         Image cheatImage = cheatIcon.getImage();
         Image cheatSmallImage = cheatImage.getScaledInstance(30, 30, Image.SCALE_FAST);
         ImageIcon cheatSmallIcon = new ImageIcon(cheatSmallImage);
@@ -97,12 +105,10 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         JPanel p1Pane=p1.PlayPane(width,250,height,1);
         p1Pane.setLocation(0,0);
         //玩家1的得分和失误
-        JLabel p1Grade = new JLabel("玩家1得分为 " + p1grade);
         p1Grade.setBounds(50,300,100,30);
         p1Grade.setForeground(new Color(71, 61, 50));
         p1Grade.setBackground(new Color(154, 228, 241));
         p1Grade.setOpaque(true);
-        JLabel p1mistake = new JLabel("玩家1失误为 " + p1mis);
         p1mistake.setBounds(50,350,100,30);
         p1mistake.setForeground(new Color(71, 61, 50));
         p1mistake.setBackground(new Color(154, 228, 241));
@@ -112,16 +118,22 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
         p2Pane.setLocation(width-250,0);
         //玩家2的得分和失误
-        JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
         p2Grade.setBounds(width-150,300,100,30);
         p2Grade.setForeground(new Color(71, 61, 50));
         p2Grade.setBackground(new Color(154, 228, 241));
         p2Grade.setOpaque(true);
-        JLabel p2mistake = new JLabel("玩家2失误为 " + p2mis);
         p2mistake.setBounds(width-150,350,100,30);
         p2mistake.setForeground(new Color(71, 61, 50));
         p2mistake.setBackground(new Color(154, 228, 241));
         p2mistake.setOpaque(true);
+
+        //回合指示器硬币
+        Image coinImage = coin.getImage();
+        Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+        ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+        coinLabel.setIcon(coinSmallIcon);//设置金币icon
+        coinLabel.setBounds(200,250,30,30);
+
 
 
         //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
@@ -169,6 +181,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(p2Grade);
         this.add(p1mistake);
         this.add(p2mistake);
+        this.add(coinLabel);
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);
@@ -241,9 +254,22 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         buttonStat[r][c] = 1;//无论怎样该格一定会被打开,所以直接改变其状态为已开
         //首先判定此次点击为哪位玩家的操作
         if(count < GameStat.at){ //判定为玩家1的操作
+            count++;
+            //金币转向
+            if(count == GameStat.at){
+                Image coinImage = coin.getImage();
+                Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                coinLabel.setBounds(this.getWidth()-230,250,30,30);
+            }
+
+            //展开操作
             if(data[r][c] == LEICODE){
                 p1mis++;//玩家1踩雷，失误数加1
-
+                p1grade--;//得分减一
+                p1mistake.setText("玩家1失误为 " + p1mis);
+                p1Grade.setText("玩家1得分为 " + p1grade);
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
@@ -253,8 +279,20 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 openNum(btn,data[r][c]);
             }
         }else if(count < GameStat.at*2){//判定为玩家2的操作
+            count++;
+            if(count == GameStat.at*2){
+                Image coinImage = coin.getImage();
+                Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                coinLabel.setBounds(200,250,30,30);
+                count = 0;
+            }
             if(data[r][c] == LEICODE){
                 p2mis++;//玩家2踩雷，失误数加1
+                p2grade--;
+                p2mistake.setText("玩家2失误为 " + p2mis);
+                p2Grade.setText("玩家2得分为 " + p2grade);
                 Image image = mine.getImage();
                 Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon smallIcon = new ImageIcon(smallImage);
@@ -278,24 +316,47 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     buttonStat[i][j] = 1;//无论怎样该格一定会被打开
                     //首先判定此次点击为哪位玩家的操作
                     if(count < GameStat.at){ //判定为玩家1的操作
+                        count++;
+                        if(count == GameStat.at){
+                            Image coinImage = coin.getImage();
+                            Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                            coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                            coinLabel.setBounds(this.getWidth()-230,250,30,30);
+                        }
                         if(data[i][j] == LEICODE){
                             p1grade++;//玩家1插旗成功，积分加1
+                            p1Grade.setText("玩家1得分为 " + p1grade);
                             Image image = Flag.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                         }else{
                             openNum(btn,data[i][j]);
+                            p1mis++;//玩家1插旗错误，失误数加1
+                            p1mistake.setText("玩家1失误为 " + p1mis);
                         }
                     }else if(count < GameStat.at*2){//判定为玩家2的操作
+                        count++;
+                        if(count == GameStat.at*2){
+                            Image coinImage = coin.getImage();
+                            Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                            coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                            coinLabel.setBounds(200,250,30,30);
+                            count = 0;
+                        }
                         if(data[i][j] == LEICODE){
                             p2grade++;//玩家2插旗成功，积分加1
+                            p2Grade.setText("玩家2得分为 " + p2grade);
                             Image image = Flag.getImage();
                             Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                         }else{
                             openNum(btn,data[i][j]);
+                            p2mis++;//玩家2插旗错误，失误数加1
+                            p2mistake.setText("玩家2失误为 " + p2mis);
                         }
                     }
                 }
