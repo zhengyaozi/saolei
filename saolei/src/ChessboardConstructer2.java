@@ -21,10 +21,10 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean firstClick = true;//该次点击是否为首次点击
 
     //玩家分数相关
-    int p1grade = 0;//p1的成绩
-    int p2grade = 0;//p2的成绩
-    int p1mis = 0;//p1的失误
-    int p2mis = 0;//p2的失误
+    public int p1grade = 0;//p1的成绩
+    public int p2grade = 0;//p2的成绩
+    public int p1mis = 0;//p1的失误
+    public int p2mis = 0;//p2的失误
     JButton cheatbtn = new JButton();
     Boolean cheatStat = false;//此时是否处在作弊状态
     int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗 2为处于透视状态
@@ -95,6 +95,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         Player p1=new Player(GameStat.player1,GameStat.p1Icon);
         JPanel p1Pane=p1.PlayPane(width,250,height,1);
         p1Pane.setLocation(0,0);
+        //玩家1的得分和失误
+        JLabel p1Grade = new JLabel("玩家1的得分为 " + p1grade);
+        p1Grade.setBounds(50,300,100,30);
+        p1Grade.setForeground(new Color(71, 61, 50));
+        p1Grade.setBackground(new Color(154, 228, 241));
+        p1Grade.setOpaque(true);
+
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
         p2Pane.setLocation(width-250,0);
@@ -142,6 +149,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
 
         this.add(sweep);
+        this.add(p1Grade);
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);

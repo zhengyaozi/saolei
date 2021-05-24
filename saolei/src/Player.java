@@ -21,11 +21,13 @@ public class Player {
 
 
         if(WhichPlayer==1){
+            //玩家头像
             Image smallPicture=GameStat.p1Icon.getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT);
             GameStat.p1Icon.setImage(smallPicture);
             picture=GameStat.p1Icon;
             JLabel jl=new JLabel(picture);
             jl.setBounds(75,100,100,100);
+
             jl.setVisible(true);
             player.add(jl);
 
