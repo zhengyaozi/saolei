@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class ChessboardConstructer2 extends JFrame implements ActionListener{
+    private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
     JButton[][] button=new JButton[GameStat.mapcolumn][GameStat.maprow];
