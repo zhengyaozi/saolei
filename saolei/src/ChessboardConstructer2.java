@@ -193,7 +193,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     private void openCell(int r,int c) {
         JButton btn = btns[r][c];
         if(!btn.isEnabled()) return; //按钮不可用直接返回
-        buttonStat[r][c] = 1;//无论怎样该格一定会被打开
+        buttonStat[r][c] = 1;//无论怎样该格一定会被打开,所以直接改变其状态为已开
         //首先判定此次点击为哪位玩家的操作
         if(count < GameStat.at){ //判定为玩家1的操作
             if(data[r][c] == LEICODE){
@@ -203,10 +203,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 ImageIcon smallIcon = new ImageIcon(smallImage);
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
             }else{
-                Image image = Clicked.getImage();
-                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                ImageIcon smallIcon = new ImageIcon(smallImage);
-                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                openNum(btn,data[r][c]);
             }
         }else if(count < GameStat.at*2){//判定为玩家2的操作
             if(data[r][c] == LEICODE){
@@ -216,10 +213,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 ImageIcon smallIcon = new ImageIcon(smallImage);
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
             }else{
-                Image image = Clicked.getImage();
-                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                ImageIcon smallIcon = new ImageIcon(smallImage);
-                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                openNum(btn,data[r][c]);
             }
         }
     }
@@ -244,10 +238,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                         }else{
-                            Image image = Clicked.getImage();
-                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                            ImageIcon smallIcon = new ImageIcon(smallImage);
-                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                            openNum(btn,data[i][j]);
                         }
                     }else if(count < GameStat.at*2){//判定为玩家2的操作
                         if(data[i][j] == LEICODE){
@@ -257,14 +248,61 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                             ImageIcon smallIcon = new ImageIcon(smallImage);
                             btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                         }else{
-                            Image image = Clicked.getImage();
-                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                            ImageIcon smallIcon = new ImageIcon(smallImage);
-                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                            openNum(btn,data[i][j]);
                         }
                     }
                 }
             }
+        }
+    }
+
+    //当开到数字时将数字显示出，并返回是否为
+    private void openNum(JButton btn,int Num){
+        if(Num == 0) {
+            Image image = Clicked.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 0 图标
+        }else if(Num == 1){
+            Image image = n1.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 1 图标
+        }else if(Num == 2){
+            Image image = n2.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 2 图标
+        }else if(Num == 3){
+            Image image = n3.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 3 图标
+        }else if(Num == 4){
+            Image image = n4.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 4 图标
+        }else if(Num == 5){
+            Image image = n5.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 5 图标
+        }else if(Num == 6){
+            Image image = n6.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 6 图标
+        }else if(Num == 7){
+            Image image = n7.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 7 图标
+        }else if(Num == 8){
+            Image image = n8.getImage();
+            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+            ImageIcon smallIcon = new ImageIcon(smallImage);
+            btn.setIcon(smallIcon);//设置按钮icon为 8 图标
         }
     }
 
