@@ -71,7 +71,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         new ChessboardConstructer2();
     }
 
-    //默认的构造方法
+    //默认的构造方法/////////////////////////////////////////
     public ChessboardConstructer2(){
         int width = GameStat.mapcolumn*30 + 500;
         int height = GameStat.maprow*30 + 200;
@@ -228,7 +228,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.setVisible(true);
     }
 
-    //存档构造方法
+    //存档构造方法////////////////////////////////////////////////////////////////
     public ChessboardConstructer2(ChessboardConstructer2 b){
         GameStat.maprow = b.ROW;
         GameStat.mapcolumn = b.COL;
@@ -248,6 +248,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.COL = b.COL;
         this.firstClick = b.firstClick;
         this.unopened = b.unopened;
+        this.seconds = b.seconds;
 
         for(int i = 0;i < GameStat.maprow;i++){
             for(int j = 0;j < GameStat.mapcolumn;j++){
@@ -326,7 +327,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p1mistake.setBounds(50,350,100,30);
         p1mistake.setForeground(new Color(71, 61, 50));
         p1mistake.setBackground(new Color(154, 228, 241));
-        p1mistake.setText("玩家2得分为 " + p1mistake);
+        p1mistake.setText("玩家1失误为 " + p1mis);
         p1mistake.setOpaque(true);
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
@@ -336,10 +337,12 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p2Grade.setBounds(width-150,300,100,30);
         p2Grade.setForeground(new Color(71, 61, 50));
         p2Grade.setBackground(new Color(154, 228, 241));
+        p2Grade.setText("玩家2得分为 " + p2grade);
         p2Grade.setOpaque(true);
         p2mistake.setBounds(width-150,350,100,30);
         p2mistake.setForeground(new Color(71, 61, 50));
         p2mistake.setBackground(new Color(154, 228, 241));
+        p2mistake.setText("玩家2失误为 " + p2mis);
         p2mistake.setOpaque(true);
 
         //回合指示器硬币
@@ -357,6 +360,32 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         for(int i=0;i<GameStat.maprow;i++){
             for(int j=0;j<GameStat.mapcolumn;j++){
                 JButton btn= b.btns[i][j];
+
+                //如果按钮状态为已开，则在面板上将其图标改为已开状态
+                if(b.buttonStat[i][j] == 1){
+                    if(data[i][j] == LEICODE){
+                        Image image = mine.getImage();
+                        Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                        ImageIcon smallIcon = new ImageIcon(smallImage);
+                        btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                    }else{
+                        openNum(btn,data[i][j]);
+                    }
+                }else if(b.buttonStat[i][j] == 2){//如果为作弊状态也将图标改为已开，但是雷的图标不一样
+                    if(data[i][j] == LEICODE){
+                        Image image = seethrough.getImage();
+                        Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                        ImageIcon smallIcon = new ImageIcon(smallImage);
+                        btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                    }else{
+                        openNum(btn,data[i][j]);
+                    }
+                }else{//不然将其设为cover状态
+                    Image image = Covered.getImage();
+                    Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                    ImageIcon smallIcon = new ImageIcon(smallImage);
+                    btn.setIcon(smallIcon);//设置初始按钮icon
+                }
                 btn.setMargin(new Insets(0,0,0,0));//设置按钮内边界为零
                 btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -373,10 +402,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     }
                 });
                 btn.setOpaque(true);
-                Image image = Covered.getImage();
-                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                ImageIcon smallIcon = new ImageIcon(smallImage);
-                btn.setIcon(smallIcon);//设置初始按钮icon
                 btn.addActionListener(this); //不清楚有什么用
                 btns[i][j] = btn;
                 sweep.add(btn);//向Jpanel中添加按钮
@@ -486,7 +511,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 coinLabel.setBounds(this.getWidth()-230,250,30,30);
             }
 
-            //展开操作
+            //展开雷区图案操作
             if(data[r][c] == LEICODE){
                 unopened--;
                 p1mis++;//玩家1踩雷，失误数加1
@@ -656,7 +681,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     private void setHeader() {
         labelt.setBounds(0,0,100,50);
-
+        labelt.setText("用时： " + seconds + "s");
         //待编写，将代开已开以及计时加入整个面板
     }
 
