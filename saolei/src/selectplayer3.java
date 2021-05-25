@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class selectplayer3 extends JFrame {
 
-    public static ChessboardConstructer2 game2;
+    public static ChessboardConstructer4 game2;
     JPanel c=new JPanel(new GridLayout(1,2));
 
     JPanel player2=new JPanel(new GridLayout(3,1));
@@ -37,7 +37,7 @@ public class selectplayer3 extends JFrame {
 
 
     public selectplayer3() throws HeadlessException {
-        super("请选择人物2");
+        super("请选择人物3");
         setBounds(250,250,700,500);
 
 //        this.setResizable(false);
@@ -77,7 +77,7 @@ public class selectplayer3 extends JFrame {
             }else {
                 GameStat.p3Icon = p1;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                game2= new ChessboardConstructer2();
+                game2= new ChessboardConstructer4();
                 this.dispose();
             }  });
         playerpicture2.addActionListener(e -> {
@@ -86,7 +86,7 @@ public class selectplayer3 extends JFrame {
             }else {
                 GameStat.p3Icon = p3;
                 new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
-                game2= new ChessboardConstructer2();
+                game2= new ChessboardConstructer4();
                 this.dispose();
             }  });
         playerpicture3.addActionListener(e -> {
@@ -95,7 +95,7 @@ public class selectplayer3 extends JFrame {
             }else {
                 GameStat.p3Icon = p3;
                 new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
-                game2= new ChessboardConstructer2();
+                game2= new ChessboardConstructer4();
                 this.dispose();
             }  });
         playerpicture4.addActionListener(e -> {
@@ -104,7 +104,7 @@ public class selectplayer3 extends JFrame {
             }else {
                 GameStat.p3Icon = p4;
                 new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
-                game2= new ChessboardConstructer2();
+                game2= new ChessboardConstructer4();
                 this.dispose();
             }  });
 
