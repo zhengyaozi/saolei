@@ -12,6 +12,7 @@ public class loadgame {
             ObjectInputStream ois1=new ObjectInputStream(new FileInputStream("oos.txt"));
 
             lgame=(ArrayList<ChessboardConstructer2>)ois1.readObject();
+            new  ChessboardConstructer2(lgame.get(2));
             ois1.close();
         } catch (IOException FileNotFoundException){
             new TimeDialog().showDialog(new JFrame(), "没有找到存档", 3);

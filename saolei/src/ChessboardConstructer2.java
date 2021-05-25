@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Random;
 
 public class ChessboardConstructer2 extends JFrame implements ActionListener{
@@ -20,7 +21,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
     JButton restarter = new JButton();//重开一局的按钮
-    
+    JButton saveGame = new JButton("保存游戏");
 
     //玩家分数相关
     public String player1 = GameStat.player1;
@@ -106,6 +107,22 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 super.mouseClicked(e);
                 new ChessboardConstructer2();
                 dispose();//点击后关闭本窗口
+            }
+        });
+
+        //保存游戏按钮
+        saveGame.setBounds(450,50,100,50);
+        saveGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                try {
+                    new savegame();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
             }
         });
 
@@ -202,6 +219,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
+        this.add(saveGame);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
@@ -209,6 +227,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
         this.setVisible(true);
     }
+
     //存档构造方法
     public ChessboardConstructer2(ChessboardConstructer2 b){
         GameStat.maprow = b.ROW;
@@ -275,6 +294,22 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         });
 
+        //保存游戏按钮
+        saveGame.setBounds(450,50,100,50);
+        saveGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                try {
+                    new savegame();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+
         //添加计时器、代开、已开的头部面板
         setHeader();
 
@@ -286,10 +321,12 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p1Grade.setBounds(50,300,100,30);
         p1Grade.setForeground(new Color(71, 61, 50));
         p1Grade.setBackground(new Color(154, 228, 241));
+        p1Grade.setText("玩家1得分为 " + p1grade);
         p1Grade.setOpaque(true);
         p1mistake.setBounds(50,350,100,30);
         p1mistake.setForeground(new Color(71, 61, 50));
         p1mistake.setBackground(new Color(154, 228, 241));
+        p1mistake.setText("玩家2得分为 " + p1mistake);
         p1mistake.setOpaque(true);
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
@@ -316,6 +353,36 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             coinLabel.setBounds(this.getWidth()-230,250,30,30);
         }
 
+        //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
+        for(int i=0;i<GameStat.maprow;i++){
+            for(int j=0;j<GameStat.mapcolumn;j++){
+                JButton btn= b.btns[i][j];
+                btn.setMargin(new Insets(0,0,0,0));//设置按钮内边界为零
+                btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        super.mouseClicked(e);
+                        JButton btn = (JButton)e.getSource();
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            //左键操作
+                            leftClicked(btn);
+                        }else if (e.getButton() == MouseEvent.BUTTON3) {
+                            //右键操作
+                            rightClicked(btn);
+                        }
+                    }
+                });
+                btn.setOpaque(true);
+                Image image = Covered.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置初始按钮icon
+                btn.addActionListener(this); //不清楚有什么用
+                btns[i][j] = btn;
+                sweep.add(btn);//向Jpanel中添加按钮
+            }
+        }
+
         //背景图片加入
         Image image = sweeepbg.getImage();
         Image smallImage = image.getScaledInstance(width,height,Image.SCALE_DEFAULT);
@@ -336,6 +403,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
+        this.add(saveGame);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
