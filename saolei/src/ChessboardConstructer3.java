@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class ChessboardConstructer3 extends JFrame implements ActionListener{
     String boardName;
-    private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
     int[][] data = new int[GameStat.mapcolumn][GameStat.maprow];
@@ -85,7 +84,7 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
 
     //用于测试ChessboardConstructer2
     public static void main(String[] args) {
-        new ChessboardConstructer2();
+        new ChessboardConstructer3();
     }
 
     //默认的构造方法/////////////////////////////////////////
@@ -247,7 +246,7 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
         this.add(p2name);
         this.add(bgLabel);
 
-        this.setTitle("双人对战扫雷");
+        this.setTitle("人机对战扫雷");
         timer.start();
 
         this.setVisible(true);
@@ -461,7 +460,7 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
         this.add(p2name);
         this.add(bgLabel);
 
-        this.setTitle("双人对战扫雷");
+        this.setTitle("人机对战扫雷");
         timer.start();
 
         this.setVisible(true);
@@ -530,7 +529,7 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
         if(!btn.isEnabled()) return; //按钮不可用直接返回
         buttonStat[r][c] = 1;//无论怎样该格一定会被打开,所以直接改变其状态为已开
         //首先判定此次点击为哪位玩家的操作
-        if(count < GameStat.at){ //判定为玩家1的操作
+        if(count < GameStat.at){ //判定为玩家的操作
             count++;
             //金币转向
             if(count == GameStat.at){
@@ -570,43 +569,21 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
                 b1.play();
                 openNum(btn,data[r][c]);
             }
-        }else if(count < GameStat.at*2){//判定为玩家2的操作
-            count++;
-            if(count == GameStat.at*2){
-                Image coinImage = coin.getImage();
-                Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
-                ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
-                coinLabel.setIcon(coinSmallIcon);//设置金币icon
-                coinLabel.setBounds(200,250,30,30);
-                count = 0;
-            }
-            if(data[r][c] == LEICODE){
-                //播放背景音乐
-                try {
-                    b2 = Applet.newAudioClip(file2.toURL());
-                } catch (MalformedURLException malformedURLException) {
-                    malformedURLException.printStackTrace();
+
+            //如果此次为玩家的最后一次操作，则循环new n次Robot
+            if(count == GameStat.at-1){
+                for(;count < GameStat.at*2;){
+                    new Robot();
+                    count++;
+                    if(count == GameStat.at*2){
+                        Image coinImage = coin.getImage();
+                        Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                        ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                        coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                        coinLabel.setBounds(200,250,30,30);
+                        count = 0;
+                    }
                 }
-                b2.play();
-                unopened--;
-                p2mis++;//玩家2踩雷，失误数加1
-                p2grade--;
-                p2mistake.setText("玩家2失误为 " + p2mis);
-                p2Grade.setText("玩家2得分为 " + p2grade);
-                Image image = mine.getImage();
-                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                ImageIcon smallIcon = new ImageIcon(smallImage);
-                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
-                checkWin();
-            }else{
-                //播放背景音乐
-                try {
-                    b1 = Applet.newAudioClip(file1.toURL());
-                } catch (MalformedURLException malformedURLException) {
-                    malformedURLException.printStackTrace();
-                }
-                b1.play();
-                openNum(btn,data[r][c]);
             }
         }
     }
@@ -631,7 +608,7 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
 
                     buttonStat[i][j] = 1;//无论怎样该格一定会被打开
                     //首先判定此次点击为哪位玩家的操作
-                    if(count < GameStat.at){ //判定为玩家1的操作
+                    if(count < GameStat.at){ //判定为玩家的操作
                         count++;
                         if(count == GameStat.at){
                             Image coinImage = coin.getImage();
@@ -654,29 +631,21 @@ public class ChessboardConstructer3 extends JFrame implements ActionListener{
                             p1mis++;//玩家1插旗错误，失误数加1
                             p1mistake.setText("玩家1失误为 " + p1mis);
                         }
-                    }else if(count < GameStat.at*2){//判定为玩家2的操作
-                        count++;
-                        if(count == GameStat.at*2){
-                            Image coinImage = coin.getImage();
-                            Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
-                            ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
-                            coinLabel.setIcon(coinSmallIcon);//设置金币icon
-                            coinLabel.setBounds(200,250,30,30);
-                            count = 0;
-                        }
-                        if(data[i][j] == LEICODE){
-                            unopened--;
-                            p2grade++;//玩家2插旗成功，积分加1
-                            p2Grade.setText("玩家2得分为 " + p2grade);
-                            Image image = Flag.getImage();
-                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                            ImageIcon smallIcon = new ImageIcon(smallImage);
-                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
-                            checkWin();
-                        }else{
-                            openNum(btn,data[i][j]);
-                            p2mis++;//玩家2插旗错误，失误数加1
-                            p2mistake.setText("玩家2失误为 " + p2mis);
+
+                        //如果此次为玩家的最后一次操作，则循环new n次Robot
+                        if(count == GameStat.at-1){
+                            for(;count < GameStat.at*2;){
+                                new Robot();
+                                count++;
+                                if(count == GameStat.at*2){
+                                    Image coinImage = coin.getImage();
+                                    Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                                    ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                                    coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                                    coinLabel.setBounds(200,250,30,30);
+                                    count = 0;
+                                }
+                            }
                         }
                     }
                 }
