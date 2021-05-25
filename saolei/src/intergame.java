@@ -86,12 +86,8 @@ public class intergame extends JFrame {
             if (g.size()!=0)f.setVisible(true);
         });
 
-
- setsound.addActionListener(new ActionListener() {
-     @Override
-     public void actionPerformed(ActionEvent e) {
-
-     }
+ setsound.addActionListener(e -> {
+       new  AudioPlayDemo();
  });
         bg.add(j);
         this.add(bg);
