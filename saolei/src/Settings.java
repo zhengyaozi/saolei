@@ -26,11 +26,11 @@ class Settings<background> extends JFrame {
     private JTextField zdylei = new JTextField();
     private JButton finishbtn = new JButton("开始游戏吧");
 
-BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage());
+BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
     public Settings() {
 
         super("游戏设置");
-        setBounds(300,200,400,500);
+        setBounds(300,200,700,500);
         dan.setOpaque(false);
         shuang.setOpaque(false);
         easybtn.setOpaque(false);

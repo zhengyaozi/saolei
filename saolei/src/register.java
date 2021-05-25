@@ -21,7 +21,7 @@ public class register extends JFrame {
     private JTextField writenum=new JTextField();
 
     private JButton OK=new JButton("确认");
-    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("zhangwei.jpeg").getImage());
+    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw2.gif").getImage());
 
 
     public register(){
@@ -32,8 +32,8 @@ public class register extends JFrame {
         r2.add(writename);
         r6.add(OK);
 
-
-
+        putnum.setForeground(Color.WHITE);
+        putname.setForeground(Color.WHITE);
         r3.add(putnum);
         r3.add(writenum);
 
