@@ -73,7 +73,7 @@ JButton finish1=new JButton("确认");
             player1.setVisible(false);
         });
        playerpicture1.addActionListener(e -> {
-           if (GameStat.player1==null){
+           if (GameStat.player1.equals("Luffy")){
                new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
            }else {
                GameStat.p1Icon = p1;
@@ -82,7 +82,7 @@ JButton finish1=new JButton("确认");
                this.dispose();
            } });
         playerpicture2.addActionListener(e -> {
-            if (GameStat.player1==null){
+            if (GameStat.player1.equals("Luffy")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p2;
@@ -92,7 +92,7 @@ JButton finish1=new JButton("确认");
             } });
 
         playerpicture3.addActionListener(e -> {
-            if (GameStat.player1==null){
+            if (GameStat.player1.equals("Luffy")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p3;
@@ -102,7 +102,7 @@ JButton finish1=new JButton("确认");
             }  });
 
         playerpicture4.addActionListener(e -> {
-            if (GameStat.player1==null){
+            if (GameStat.player1.equals("Luffy")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p1Icon = p4;
