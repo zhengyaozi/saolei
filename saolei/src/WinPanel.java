@@ -78,6 +78,94 @@ public class WinPanel extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //三人游戏中两人平局构造方法
+    public WinPanel(String p1,String p2){
+        int width = 600;
+        int height = 400;
+        this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
+        this.setResizable(false);
+        this.setLayout(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //设置顶头面板
+        words.setText(p1 + "&" + p2 + "平局");
+        words.setBounds(290,100,100,50);
+
+        //再来一局按钮
+        restart.setText("再来一局");
+        restart.setBounds(50,250,200,100);
+        restart.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new ChessboardConstructer2();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        //返回设置面板按钮
+        toSetting.setText("返回菜单栏");
+        toSetting.setBounds(350,250,200,100);
+        toSetting.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new intergame();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        this.setTitle("比试结果");
+        this.add(restart);
+        this.add(toSetting);
+        this.add(words);
+        this.setVisible(true);
+    }
+
+    //三人平局构造方法
+    public WinPanel(int i){
+        int width = 600;
+        int height = 400;
+        this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
+        this.setResizable(false);
+        this.setLayout(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //设置顶头面板
+        words.setText("三人平局");
+        words.setBounds(290,100,100,50);
+
+        //再来一局按钮
+        restart.setText("再来一局");
+        restart.setBounds(50,250,200,100);
+        restart.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new ChessboardConstructer2();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        //返回设置面板按钮
+        toSetting.setText("返回菜单栏");
+        toSetting.setBounds(350,250,200,100);
+        toSetting.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new intergame();
+                dispose();//点击后关闭本窗口
+            }
+        });
+
+        this.setTitle("比试结果");
+        this.add(restart);
+        this.add(toSetting);
+        this.add(words);
+        this.setVisible(true);
+    }
+
 
     //其中一方胜利构造方法
     public WinPanel(String winner,ImageIcon winIcon){

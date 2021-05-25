@@ -456,8 +456,7 @@ public class ChessboardConstructer4 extends JFrame implements ActionListener{
                             Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
                             ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
                             coinLabel.setIcon(coinSmallIcon);//设置金币icon
-                            coinLabel.setBounds(200,250,30,30);
-                            count = 0;
+                            coinLabel.setBounds(320,80,30,30);
                         }
                         if(data[i][j] == LEICODE){
                             unopened--;
@@ -473,6 +472,30 @@ public class ChessboardConstructer4 extends JFrame implements ActionListener{
                             p2mis++;//玩家2插旗错误，失误数加1
                             p2mistake.setText("玩家2失误为 " + p2mis);
                         }
+                    }else if(count < GameStat.at*3){//判定为玩家3的操作
+                        count++;
+                        if(count == GameStat.at*3){
+                            Image coinImage = coin.getImage();
+                            Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                            coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                            coinLabel.setBounds(200,250,30,30);
+                            count = 0;
+                        }
+                        if(data[i][j] == LEICODE){
+                            unopened--;
+                            p3grade++;//玩家3插旗成功，积分加1
+                            p3Grade.setText("玩家3得分为 " + p3grade);
+                            Image image = Flag.getImage();
+                            Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                            ImageIcon smallIcon = new ImageIcon(smallImage);
+                            btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                            checkWin();
+                        }else{
+                            openNum(btn,data[i][j]);
+                            p3mis++;//玩家3插旗错误，失误数加1
+                            p3mistake.setText("玩家3失误为 " + p3mis);
+                        }
                     }
                 }
             }
@@ -481,15 +504,32 @@ public class ChessboardConstructer4 extends JFrame implements ActionListener{
 
     //每次开出雷后检查是否胜利
     private void checkWin() {
-        if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade)) {//p1获胜
-            new WinPanel(GameStat.player1,GameStat.p1Icon);
-            dispose();
-        }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade)){//p2获胜
-            new WinPanel(GameStat.player2,GameStat.p2Icon);
-            dispose();
-        }else if(unopened == 0 && p1grade == p2grade){//平局
-            new WinPanel();
-            dispose();
+
+        if(unopened == 0){
+            //抓取其中的最大值
+            if(p1grade > p2grade && p1grade > p3grade){
+                new WinPanel(GameStat.player1,GameStat.p1Icon);
+                dispose();
+            }else if(p2grade > p1grade && p2grade > p3grade){
+                new WinPanel(GameStat.player2,GameStat.p2Icon);
+                dispose();
+            }else if(p3grade > p1grade && p3grade > p2grade){
+                new WinPanel(GameStat.player3,GameStat.p3Icon);
+                dispose();
+            }else if (p1grade == p2grade && p1grade != p3grade){
+                new WinPanel(player1,player2);
+                dispose();
+            }else if (p2grade == p3grade && p2grade != p1grade){
+                new WinPanel(player3,player2);
+                dispose();
+            }else if (p1grade == p3grade && p2grade != p1grade){
+                new WinPanel(player1,player3);
+                dispose();
+            }else{
+                new WinPanel(3);
+                dispose();
+            }
+
         }
     }
 
