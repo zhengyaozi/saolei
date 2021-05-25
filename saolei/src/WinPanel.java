@@ -56,13 +56,13 @@ public class WinPanel extends JFrame implements ActionListener {
         });
 
         //返回设置面板按钮
-        toSetting.setText("返回设置面板");
+        toSetting.setText("返回菜单栏");
         toSetting.setBounds(350,250,200,100);
         toSetting.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                new Settings();
+                new intergame();
                 dispose();//点击后关闭本窗口
             }
         });
@@ -110,13 +110,13 @@ public class WinPanel extends JFrame implements ActionListener {
         });
 
         //返回设置面板按钮
-        toSetting.setText("返回设置面板");
+        toSetting.setText("返回菜单栏");
         toSetting.setBounds(350,250,200,100);
         toSetting.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                new Settings();
+                new intergame();
                 dispose();//点击后关闭本窗口
             }
         });
