@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Random;
 
-public class ChessboardConstructer2 extends JFrame implements ActionListener{
+public class ChessboardConstructer3 extends JFrame implements ActionListener{
     String boardName;
     private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -62,7 +62,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //功能按钮
     JButton restarter = new JButton();//重开一局的按钮
-    JButton saveGame = new JButton("保存游戏");
     JButton toIntergame = new JButton("返回菜单栏");
 
     //图标管理
@@ -90,7 +89,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     }
 
     //默认的构造方法/////////////////////////////////////////
-    public ChessboardConstructer2(){
+    public ChessboardConstructer3(){
         int width = GameStat.mapcolumn*30 + 500;
         int height = GameStat.maprow*30 + 200;
         this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
@@ -109,11 +108,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         cheatbtn.setIcon(cheatSmallIcon);//设置作弊按钮icon
         cheatbtn.setBounds((width-30)/2,90,30,30);
         cheatbtn.addMouseListener(new MouseAdapter() {
-                                      @Override
-                                      public void mouseClicked(MouseEvent e) {
-                                          super.mouseClicked(e);
-                                          cheat();
-                                      }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cheat();
+            }
         });
 
         //重开按钮
@@ -128,24 +127,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         });
 
-        //保存游戏按钮
-        saveGame.setBounds(width-350,50,100,50);
-        saveGame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                try {
-                    new savegame();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
-                }
-            }
-        });
 
         //召唤菜单栏按钮
-        toIntergame.setBounds(width-250,20,100,30);
+        toIntergame.setBounds(width-350,50,100,50);
         toIntergame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -258,7 +242,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
-        this.add(saveGame);
         this.add(toIntergame);
         this.add(p1name);
         this.add(p2name);
@@ -271,7 +254,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     }
 
     //存档构造方法////////////////////////////////////////////////////////////////
-    public ChessboardConstructer2(ChessboardConstructer2 b){
+    public ChessboardConstructer3(ChessboardConstructer2 b){
         GameStat.maprow = b.ROW;
         GameStat.mapcolumn = b.COL;
         GameStat.maplei = b.LEICOUNT;
@@ -337,24 +320,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         });
 
-        //保存游戏按钮
-        saveGame.setBounds(width-350,50,100,50);
-        saveGame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                try {
-                    new savegame();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
-                }
-            }
-        });
 
         //召唤菜单栏按钮
-        toIntergame.setBounds(width-250,20,100,30);
+        toIntergame.setBounds(width-350,50,100,50);
         toIntergame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -488,7 +456,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
-        this.add(saveGame);
         this.add(toIntergame);
         this.add(p1name);
         this.add(p2name);
