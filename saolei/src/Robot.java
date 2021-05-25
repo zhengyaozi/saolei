@@ -5,8 +5,16 @@ import java.util.Random;
 public class Robot {
     public Robot(ChessboardConstructer3 b){
         Random rand = new Random();
-        int r = rand.nextInt(b.ROW);
-        int c = rand.nextInt(b.COL);
+        int r = 0;
+        int c = 0;
+        for(Boolean flag = true;flag;){
+            r = rand.nextInt(b.ROW);
+            c = rand.nextInt(b.COL);
+            if(b.buttonStat[r][c] != 1){
+                flag = false;
+            }
+        }
+
         if(b.data[r][c] == b.LEICODE){
             b.unopened--;
             b.p2grade++;//机器人插旗成功，积分加1
