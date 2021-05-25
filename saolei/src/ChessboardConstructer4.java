@@ -15,7 +15,7 @@ public class ChessboardConstructer4 extends JFrame implements ActionListener{
     private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
-    int[][] data = new int[GameStat.mapcolumn][GameStat.maprow];
+    int[][] data = new int[GameStat.maprow][GameStat.mapcolumn];
     int ROW = GameStat.maprow;
     int COL = GameStat.mapcolumn;
     int LEICOUNT =  GameStat.maplei;
@@ -97,7 +97,7 @@ public class ChessboardConstructer4 extends JFrame implements ActionListener{
         this.setLayout(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
+        JPanel sweep=new JPanel(new GridLayout(GameStat.maprow,GameStat.mapcolumn,0,0));
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
 
         //作弊按钮
