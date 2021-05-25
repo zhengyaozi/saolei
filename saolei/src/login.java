@@ -8,9 +8,9 @@ public class login {
 
     private JFrame jFrame = new JFrame("欢迎来到雷区");
     private Container c = jFrame.getContentPane();
-    private JLabel a1 = new JLabel("name");
+    private JLabel a1 = new JLabel("账号");
     private JTextField username = new JTextField();
-    private JLabel a2 = new JLabel("password");
+    private JLabel a2 = new JLabel("密码");
     private JTextField password = new JTextField();
     private JButton okbtn = new JButton("OK");
     private JButton cancelbtn = new JButton("cancel");
