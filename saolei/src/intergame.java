@@ -13,12 +13,11 @@ public class intergame extends JFrame {
     JPanel j3=new JPanel(new GridLayout(1,1));
     JPanel j4=new JPanel(new GridLayout(1,1));
     JPanel j5=new JPanel(new GridLayout(1,1));
-    JPanel j6=new JPanel(new GridLayout(1,1));
+
     JPanel j7=new JPanel(new GridLayout(1,1));
     private JButton beginnew=new JButton("开始新的游戏");
     private JButton loadold=new JButton("读取存档");
     private  JButton setsound=new JButton("声音设置");
-    private JButton setenvir=new JButton("风格设置");
     BackgroundPanel bg=new BackgroundPanel(new ImageIcon("loadpicture.jpeg").getImage());
 
     public  intergame(){
@@ -31,25 +30,25 @@ public class intergame extends JFrame {
         j3.setOpaque(false);
         j4.setOpaque(false);
         j5.setOpaque(false);
-        j6.setOpaque(false);
+
         j7.setOpaque(false);
         beginnew.setOpaque(false);
         loadold.setOpaque(false);
-        setenvir.setOpaque(false);
+
         j4.setVisible(false);
         j5.setVisible(false);
 
         j1.add(beginnew);
         j2.add(loadold);
         j3.add(setsound);
-        j6.add(setenvir);
+
         j.add(j1);
         j.add(j4);
         j.add(j2);
         j.add(j5);
         j.add(j3);
         j.add(j7);
-        j.add(j6);
+
 
         beginnew.addActionListener(e -> {new Settings(); this.dispose();});
         loadold.addActionListener(e -> {
@@ -86,16 +85,7 @@ public class intergame extends JFrame {
                  f.add(p);
             if (g.size()!=0)f.setVisible(true);
         });
-//    setenvir.addActionListener(e -> {
-//        JFrame j=new JFrame();
-//        JPanel p=new JPanel();
-//        JButton b=new JButton("改变风格");
-//        p.add(b); j.add(p);p.setBounds(50,50,50,50);j.setVisible(true);
-//        b.addActionListener(e12 -> {
-//            new intergame();
-//            intergame.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//        });
-//    });
+
 
  setsound.addActionListener(new ActionListener() {
      @Override

@@ -65,9 +65,10 @@ public class register extends JFrame {
                 }
                 //确认无误后弹出注册成功
                 if (result) {
-                    new TimeDialog().showDialog(new JFrame(), "注册成功！", 3);
                     GameStat.user.add(writename.getText());
                     GameStat.passwd.add(writenum.getText());
+                  new TimeDialog().showDialog(new JFrame(), "注册成功！", 3);
+                  this.dispose();
                 }
             } else {
                 //六位数组不合理弹出窗口

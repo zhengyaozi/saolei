@@ -89,26 +89,27 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("chessbroad.jpeg").getImage
                 try {
                      col = Integer.parseInt(zdycolumn.getText());
                      row = Integer.parseInt(zdyrow.getText());
-                    int zhadan = Integer.parseInt(zdyrow.getText());
                 } catch (Exception ex) {
-                    new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西，请重新输入", 3);
+                    new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西", 3);
                     result = false;
                 }
                 if (result) {
                     if (Integer.parseInt(zdycolumn.getText()) > 30 || Integer.parseInt(zdycolumn.getText()) < 1 || Integer.parseInt(zdyrow.getText()) > 24
                             || Integer.parseInt(zdyrow.getText()) < 1 || Integer.parseInt(zdylei.getText()) > 0.5*col*row) {
-                        new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘和炸弹的限制，请重新输入", 6);
+                        new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘和炸弹的限制", 2);
+                        result=false;
                     } else {
                         GameStat.mapcolumn = Integer.parseInt(zdycolumn.getText());
                         GameStat.maprow = Integer.parseInt(zdyrow.getText());
                         GameStat.maplei = Integer.parseInt(zdyrow.getText());
+
                     }
                 }
             }
-            if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
+         if (GameStat.mapcolumn!=0){if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
             if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
-                Settings.this.dispose();}
+                Settings.this.dispose();}}
         });
 
         this.setVisible(true);
