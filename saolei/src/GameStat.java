@@ -7,7 +7,7 @@ class GameStat {
     public static int playerCnt=1;
     public static int mapcolumn=30;
     public static int maprow=24;
-    public static int maplei=99;
+    public static int maplei=20;
     public static String player1 = "Luffy";
     public static String player2 = "Marco";
     public static String player3 = "Sauron";
