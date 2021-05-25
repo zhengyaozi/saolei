@@ -26,6 +26,7 @@ public class login {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //初始化--往窗体里放其他控件
         init();
+
         //设置窗体可见
         jFrame.setVisible(true);
         listerner();

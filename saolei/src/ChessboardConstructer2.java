@@ -1,10 +1,14 @@
 import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Random;
 
 public class ChessboardConstructer2 extends JFrame implements ActionListener{
@@ -22,6 +26,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int unopened = LEICOUNT;//未打开的雷的数量
     JButton restarter = new JButton();//重开一局的按钮
     JButton saveGame = new JButton("保存游戏");
+
+    //按钮音效
+    AudioClip b1;
+    AudioClip b2;
+    File file1 = new File("button1.wav");
+    File file2 = new File("boom.wav");
+
 
     //玩家分数相关
     public String player1 = GameStat.player1;
@@ -177,7 +188,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
+//                        super.mouseClicked(e);
                         JButton btn = (JButton)e.getSource();
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             //左键操作
@@ -185,6 +196,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                         }else if (e.getButton() == MouseEvent.BUTTON3) {
                             //右键操作
                             rightClicked(btn);
+                        }else if(e.getButton() == MouseEvent.MOUSE_ENTERED){
+
                         }
                     }
                 });
@@ -513,6 +526,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
             //展开雷区图案操作
             if(data[r][c] == LEICODE){
+                //播放背景音乐
+                try {
+                    b2 = Applet.newAudioClip(file2.toURL());
+                } catch (MalformedURLException malformedURLException) {
+                    malformedURLException.printStackTrace();
+                }
+                b2.play();
                 unopened--;
                 p1mis++;//玩家1踩雷，失误数加1
                 p1grade--;//得分减一
@@ -524,6 +544,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                 checkWin();
             }else{
+                //播放背景音乐
+                try {
+                    b1 = Applet.newAudioClip(file1.toURL());
+                } catch (MalformedURLException malformedURLException) {
+                    malformedURLException.printStackTrace();
+                }
+                b1.play();
                 openNum(btn,data[r][c]);
             }
         }else if(count < GameStat.at*2){//判定为玩家2的操作
@@ -537,6 +564,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 count = 0;
             }
             if(data[r][c] == LEICODE){
+                //播放背景音乐
+                try {
+                    b2 = Applet.newAudioClip(file2.toURL());
+                } catch (MalformedURLException malformedURLException) {
+                    malformedURLException.printStackTrace();
+                }
+                b2.play();
                 unopened--;
                 p2mis++;//玩家2踩雷，失误数加1
                 p2grade--;
@@ -548,6 +582,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                 checkWin();
             }else{
+                //播放背景音乐
+                try {
+                    b1 = Applet.newAudioClip(file1.toURL());
+                } catch (MalformedURLException malformedURLException) {
+                    malformedURLException.printStackTrace();
+                }
+                b1.play();
                 openNum(btn,data[r][c]);
             }
         }
@@ -562,6 +603,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     //如果该旗子已开或不可用,则直接返回不做任何动作
                     if (buttonStat[i][j] == 1 || !btn.isEnabled())
                         return;
+
+                    //播放背景音乐
+                    try {
+                        b1 = Applet.newAudioClip(file1.toURL());
+                    } catch (MalformedURLException malformedURLException) {
+                        malformedURLException.printStackTrace();
+                    }
+                    b1.play();
 
                     buttonStat[i][j] = 1;//无论怎样该格一定会被打开
                     //首先判定此次点击为哪位玩家的操作
