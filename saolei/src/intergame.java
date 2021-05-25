@@ -70,6 +70,14 @@ public class intergame extends JFrame {
                      JButton j=new JButton("存档"+i);
                      j.addActionListener(e1 -> {
                          //构造方法
+                         try {
+                             new loadgame();
+                         } catch (IOException ioException) {
+                             ioException.printStackTrace();
+                         } catch (ClassNotFoundException classNotFoundException) {
+                             classNotFoundException.printStackTrace();
+                         }
+                       
                      });
                      p.add(j);
                  }
