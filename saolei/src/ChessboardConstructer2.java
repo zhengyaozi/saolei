@@ -20,6 +20,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
     JButton restarter = new JButton();//重开一局的按钮
+    
 
     //玩家分数相关
     public String player1 = GameStat.player1;
@@ -217,8 +218,18 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         GameStat.player2 = b.player2;
         GameStat.p1Icon = b.p1Icon;
         GameStat.p2Icon = b.p2Icon;
+        this.p1grade = b.p1grade;
+        this.p2grade = b.p2grade;
+        this.p1mis = b.p1mis;
+        this.p2mis = b.p2mis;
+        this.cheatStat = b.cheatStat;
         this.boardName = b.boardName;
         this.count = b.count;
+        this.ROW = b.ROW;
+        this.COL = b.COL;
+        this.firstClick = b.firstClick;
+        this.unopened = b.unopened;
+
         for(int i = 0;i < GameStat.maprow;i++){
             for(int j = 0;j < GameStat.mapcolumn;j++){
                 this.data[i][j] = b.data[i][j];
