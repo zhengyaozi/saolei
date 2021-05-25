@@ -5,9 +5,9 @@ class GameStat {
     public static ArrayList<String> user =new ArrayList<String>();
     public static ArrayList<String> passwd =new ArrayList<String>();
     public static int playerCnt=1;
-    public static int mapcolumn=30;
-    public static int maprow=24;
-    public static int maplei=99;
+    public static int mapcolumn=5;
+    public static int maprow=5;
+    public static int maplei=5;
     public static String player1 = "Luffy";
     public static String player2 = "Marco";
     public static String player3 = "Sauron";

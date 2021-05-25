@@ -61,7 +61,7 @@ public class intergame extends JFrame {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (ClassNotFoundException classNotFoundException) {
-                classNotFoundException.printStackTrace();
+                new TimeDialog().showDialog(new JFrame(), "读档出问题了", 2);
             }
             ArrayList<ChessboardConstructer2> g= game.lgame;
                  for (int i=0;i<g.size();i++){

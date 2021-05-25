@@ -108,6 +108,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
                 if (result) {
                     if (Integer.parseInt(zdycolumn.getText()) > 30 || Integer.parseInt(zdycolumn.getText()) < 1 || Integer.parseInt(zdyrow.getText()) > 24
                             || Integer.parseInt(zdyrow.getText()) < 1 || Integer.parseInt(zdylei.getText()) > 0.5*col*row
+                            ||Integer.parseInt(zdylei.getText())<0
                             ||Integer.parseInt(atnumber.getText())>5||Integer.parseInt(atnumber.getText())<1) {
                         new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘的规则", 2);
                         result=false;
@@ -119,7 +120,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
                     }
                 }
             }
-         if (GameStat.mapcolumn!=0){
+         if (GameStat.mapcolumn!=5){
              if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
             if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
