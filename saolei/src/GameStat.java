@@ -10,7 +10,9 @@ class GameStat {
     public static int maplei=10;
     public static String player1 = "Luffy";
     public static String player2 = "Marco";
-    public static ImageIcon p1Icon = new ImageIcon("Luffy.png");
+    public static String player3 = "Sauron";
+    public static ImageIcon p1Icon = new ImageIcon("p1.png");
     public static ImageIcon p2Icon = new ImageIcon("Marco.png");
+    public static ImageIcon p3Icon = new ImageIcon("p2.png");
     public static int at = 4;//玩家每回合行动次数 actiontime 默认为四次
 }
