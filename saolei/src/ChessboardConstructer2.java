@@ -263,7 +263,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
         this.setResizable(false);
         this.setLayout(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
