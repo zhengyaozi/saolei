@@ -10,12 +10,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Random;
-public class ChessboardConstructer2 extends JFrame implements ActionListener{
+public class ChessboardConstructer4 extends JFrame implements ActionListener{
     String boardName;
     private static final long serialVersionUID = 5;
     int screenWidth= Toolkit.getDefaultToolkit().getScreenSize().width;
     int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
-    int[][] data = new int[GameStat.maprow][GameStat.mapcolumn];
+    int[][] data = new int[GameStat.mapcolumn][GameStat.maprow];
     int ROW = GameStat.maprow;
     int COL = GameStat.mapcolumn;
     int LEICOUNT =  GameStat.maplei;
@@ -24,30 +24,31 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
 
-    //按钮音效
-//    AudioClip b1;
-//    AudioClip b2;
-//    File file1 = new File("button1.wav");
-//    File file2 = new File("boom.wav");
-
 
     //玩家分数相关
     public String player1 = GameStat.player1;
     public String player2 = GameStat.player2;
+    public String player3 = GameStat.player3;
     public ImageIcon p1Icon = GameStat.p1Icon;
     public ImageIcon p2Icon = GameStat.p2Icon;
+    public ImageIcon p3Icon = GameStat.p3Icon;
     public int p1grade = 0;//p1的成绩
     public int p2grade = 0;//p2的成绩
+    public int p3grade = 0;//p3的成绩
     public int p1mis = 0;//p1的失误
     public int p2mis = 0;//p2的失误
+    public int p3mis = 0;//p3的失误
     int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗 2为处于透视状态
     JButton[][] btns = new JButton[GameStat.maprow][GameStat.mapcolumn];//承装雷区的所有按钮
     JLabel p1name = new JLabel(player1);
     JLabel p2name = new JLabel(player2);
+    JLabel p3name = new JLabel(player3);
     JLabel p1Grade = new JLabel("玩家1得分为 " + p1grade);
     JLabel p1mistake = new JLabel("玩家1失误为 " + p1mis);
     JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
     JLabel p2mistake = new JLabel("玩家2失误为 " + p2mis);
+    JLabel p3Grade = new JLabel("玩家3得分为 " + p3grade);
+    JLabel p3mistake = new JLabel("玩家3失误为 " + p3mis);
     JLabel coinLabel = new JLabel();
 
     //计时系统
@@ -61,7 +62,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //功能按钮
     JButton restarter = new JButton();//重开一局的按钮
-    JButton saveGame = new JButton("保存游戏");
     JButton toIntergame = new JButton("返回菜单栏");
 
     //图标管理
@@ -85,11 +85,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //用于测试ChessboardConstructer2
     public static void main(String[] args) {
-        new ChessboardConstructer2();
+        new ChessboardConstructer4();
     }
 
     //默认的构造方法/////////////////////////////////////////
-    public ChessboardConstructer2(){
+    public ChessboardConstructer4(){
         int width = GameStat.mapcolumn*30 + 500;
         int height = GameStat.maprow*30 + 200;
         this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
@@ -106,18 +106,18 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         Image cheatSmallImage = cheatImage.getScaledInstance(30, 30, Image.SCALE_FAST);
         ImageIcon cheatSmallIcon = new ImageIcon(cheatSmallImage);
         cheatbtn.setIcon(cheatSmallIcon);//设置作弊按钮icon
-        cheatbtn.setBounds((width-30)/2,90,30,30);
+        cheatbtn.setBounds(30,50,30,30);
         cheatbtn.addMouseListener(new MouseAdapter() {
-                                      @Override
-                                      public void mouseClicked(MouseEvent e) {
-                                          super.mouseClicked(e);
-                                          cheat();
-                                      }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cheat();
+            }
         });
 
         //重开按钮
         restarter.setText("再来一局");
-        restarter.setBounds(250,50,100,50);
+        restarter.setBounds(50,220,100,50);
         restarter.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -127,24 +127,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         });
 
-        //保存游戏按钮
-        saveGame.setBounds(width-350,50,100,50);
-        saveGame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                try {
-                    new savegame();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
-                }
-            }
-        });
-
         //召唤菜单栏按钮
-        toIntergame.setBounds(width-250,20,100,30);
+        toIntergame.setBounds(width-150,220,100,50);
         toIntergame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -164,36 +148,56 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         JPanel p1Pane=p1.PlayPane(width,250,height,1);
         p1Pane.setLocation(0,0);
         //玩家1的得分和失误
-        p1Grade.setBounds(50,300,100,30);
+        p1Grade.setBounds(50,350,100,30);
         p1Grade.setForeground(new Color(71, 61, 50));
         p1Grade.setBackground(new Color(154, 228, 241));
         p1Grade.setOpaque(true);
-        p1mistake.setBounds(50,350,100,30);
+        p1mistake.setBounds(50,400,100,30);
         p1mistake.setForeground(new Color(71, 61, 50));
         p1mistake.setBackground(new Color(154, 228, 241));
         p1mistake.setOpaque(true);
         p1name.setText(player1);
         p2name.setText(player2);
-        p1name.setBounds(50,250,100,30);
+        p1name.setBounds(50,300,100,30);
         p1name.setBackground(new Color(154, 228, 241));
         p1name.setOpaque(true);
-        p2name.setBounds(width-150,250,100,30);
-        p2name.setBackground(new Color(154, 228, 241));
-        p2name.setOpaque(true);
+
 
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
         p2Pane.setLocation(width-250,0);
         //玩家2的得分和失误
-        p2Grade.setBounds(width-150,300,100,30);
+        p2Grade.setBounds(width-150,350,100,30);
         p2Grade.setForeground(new Color(71, 61, 50));
         p2Grade.setBackground(new Color(154, 228, 241));
         p2Grade.setOpaque(true);
-        p2mistake.setBounds(width-150,350,100,30);
+        p2mistake.setBounds(width-150,400,100,30);
         p2mistake.setForeground(new Color(71, 61, 50));
         p2mistake.setBackground(new Color(154, 228, 241));
         p2mistake.setOpaque(true);
+        p2name.setBounds(width-150,300,100,30);
+        p2name.setBackground(new Color(154, 228, 241));
+        p2name.setOpaque(true);
+
+
+        //玩家3的得分和失误
+        Image small3Picture=GameStat.p3Icon.getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT);
+        GameStat.p3Icon.setImage(small3Picture);
+        JLabel jl3=new JLabel(GameStat.p3Icon);
+        jl3.setBounds(250 ,10,100,100);
+        p3Grade.setBounds(width-350,10,100,30);
+        p3Grade.setForeground(new Color(71, 61, 50));
+        p3Grade.setBackground(new Color(154, 228, 241));
+        p3Grade.setOpaque(true);
+        p3mistake.setBounds(width-350,50,100,30);
+        p3mistake.setForeground(new Color(71, 61, 50));
+        p3mistake.setBackground(new Color(154, 228, 241));
+        p3mistake.setOpaque(true);
+        p3name.setText(player3);
+        p3name.setBounds(width-350,90,100,30);
+        p3name.setBackground(new Color(154, 228, 241));
+        p3name.setOpaque(true);
 
         //回合指示器硬币
         Image coinImage = coin.getImage();
@@ -247,257 +251,29 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
 
         this.add(sweep);
+        this.add(coinLabel);
         this.add(p1Grade);
         this.add(p2Grade);
+        this.add(p3Grade);
         this.add(p1mistake);
         this.add(p2mistake);
-        this.add(coinLabel);
+        this.add(p3mistake);
+        this.add(p1name);
+        this.add(p2name);
+        this.add(p3name);
         this.add(p1Pane);
         this.add(p2Pane);
+        this.add(jl3);
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
-        this.add(saveGame);
         this.add(toIntergame);
-        this.add(p1name);
-        this.add(p2name);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
         timer.start();
 
         this.setVisible(true);
-    }
-
-    //存档构造方法////////////////////////////////////////////////////////////////
-    public ChessboardConstructer2(ChessboardConstructer2 b){
-        GameStat.maprow = b.ROW;
-        GameStat.mapcolumn = b.COL;
-        GameStat.maplei = b.LEICOUNT;
-        GameStat.player1 = b.player1;
-        GameStat.player2 = b.player2;
-        GameStat.p1Icon = b.p1Icon;
-        GameStat.p2Icon = b.p2Icon;
-        this.p1grade = b.p1grade;
-        this.p2grade = b.p2grade;
-        this.p1mis = b.p1mis;
-        this.p2mis = b.p2mis;
-        this.cheatStat = b.cheatStat;
-        this.boardName = b.boardName;
-        this.count = b.count;
-        this.ROW = b.ROW;
-        this.COL = b.COL;
-        this.firstClick = b.firstClick;
-        this.unopened = b.unopened;
-        this.seconds = b.seconds;
-
-        for(int i = 0;i < GameStat.maprow;i++){
-            for(int j = 0;j < GameStat.mapcolumn;j++){
-                this.data[i][j] = b.data[i][j];
-                this.btns[i][j] = b.btns[i][j];
-                this.buttonStat[i][j] = b.buttonStat[i][j];
-            }
-        }
-
-        int width = GameStat.mapcolumn*30 + 500;
-        int height = GameStat.maprow*30 + 200;
-        this.setBounds((screenWidth-width)/2,(screenHeight-height)/2,width,height);
-        this.setResizable(false);
-        this.setLayout(null);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
-        sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
-
-        //作弊按钮
-        cheatbtn.setBorder(BorderFactory.createRaisedBevelBorder());
-        Image cheatImage = cheatIcon.getImage();
-        Image cheatSmallImage = cheatImage.getScaledInstance(30, 30, Image.SCALE_FAST);
-        ImageIcon cheatSmallIcon = new ImageIcon(cheatSmallImage);
-        cheatbtn.setIcon(cheatSmallIcon);//设置作弊按钮icon
-        cheatbtn.setBounds((width-30)/2,90,30,30);
-        cheatbtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                cheat();
-            }
-        });
-
-        //重开按钮
-        restarter.setText("再来一局");
-        restarter.setBounds(250,50,100,50);
-        restarter.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                new ChessboardConstructer2();
-                dispose();//点击后关闭本窗口
-            }
-        });
-
-        //保存游戏按钮
-        saveGame.setBounds(width-350,50,100,50);
-        saveGame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                try {
-                    new savegame();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
-                }
-            }
-        });
-
-        //召唤菜单栏按钮
-        toIntergame.setBounds(width-250,20,100,30);
-        toIntergame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                new intergame();
-            }
-        });
-
-        //添加计时器、代开、已开的头部面板
-        setHeader();
-
-        //玩家面板设置
-        Player p1=new Player(GameStat.player1,GameStat.p1Icon);
-        JPanel p1Pane=p1.PlayPane(width,250,height,1);
-        p1Pane.setLocation(0,0);
-        //玩家1的得分和失误
-        p1Grade.setBounds(50,300,100,30);
-        p1Grade.setForeground(new Color(71, 61, 50));
-        p1Grade.setBackground(new Color(154, 228, 241));
-        p1Grade.setText("玩家1得分为 " + p1grade);
-        p1Grade.setOpaque(true);
-        p1mistake.setBounds(50,350,100,30);
-        p1mistake.setForeground(new Color(71, 61, 50));
-        p1mistake.setBackground(new Color(154, 228, 241));
-        p1mistake.setText("玩家1失误为 " + p1mis);
-        p1mistake.setOpaque(true);
-        p1name.setText(player1);
-        p2name.setText(player2);
-        p1name.setBounds(50,250,100,30);
-        p1name.setBackground(new Color(154, 228, 241));
-        p1name.setOpaque(true);
-        p2name.setBounds(width-150,250,100,30);
-        p2name.setBackground(new Color(154, 228, 241));
-        p2name.setOpaque(true);
-
-        Player p2=new Player(GameStat.player2, GameStat.p2Icon);
-        JPanel p2Pane=p2.PlayPane(width,250,height,2);
-        p2Pane.setLocation(width-250,0);
-        //玩家2的得分和失误
-        p2Grade.setBounds(width-150,300,100,30);
-        p2Grade.setForeground(new Color(71, 61, 50));
-        p2Grade.setBackground(new Color(154, 228, 241));
-        p2Grade.setText("玩家2得分为 " + p2grade);
-        p2Grade.setOpaque(true);
-        p2mistake.setBounds(width-150,350,100,30);
-        p2mistake.setForeground(new Color(71, 61, 50));
-        p2mistake.setBackground(new Color(154, 228, 241));
-        p2mistake.setText("玩家2失误为 " + p2mis);
-        p2mistake.setOpaque(true);
-
-        //回合指示器硬币
-        Image coinImage = coin.getImage();
-        Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
-        ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
-        coinLabel.setIcon(coinSmallIcon);//设置金币icon
-        if(this.count < GameStat.at){
-            coinLabel.setBounds(200,250,30,30);
-        }else if(this.count < GameStat.at*2){
-            coinLabel.setBounds(this.getWidth()-230,250,30,30);
-        }
-
-        //向sweep panel 中添加按钮，并加载buttonStat和btns两个数组
-        for(int i=0;i<GameStat.maprow;i++){
-            for(int j=0;j<GameStat.mapcolumn;j++){
-                JButton btn= b.btns[i][j];
-
-                //如果按钮状态为已开，则在面板上将其图标改为已开状态
-                if(b.buttonStat[i][j] == 1){
-                    if(data[i][j] == LEICODE){
-                        Image image = mine.getImage();
-                        Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                        ImageIcon smallIcon = new ImageIcon(smallImage);
-                        btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
-                    }else{
-                        openNum(btn,data[i][j]);
-                    }
-                }else if(b.buttonStat[i][j] == 2){//如果为作弊状态也将图标改为已开，但是雷的图标不一样
-                    if(data[i][j] == LEICODE){
-                        Image image = seethrough.getImage();
-                        Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                        ImageIcon smallIcon = new ImageIcon(smallImage);
-                        btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
-                    }else{
-                        openNum(btn,data[i][j]);
-                    }
-                }else{//不然将其设为cover状态
-                    Image image = Covered.getImage();
-                    Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
-                    ImageIcon smallIcon = new ImageIcon(smallImage);
-                    btn.setIcon(smallIcon);//设置初始按钮icon
-                }
-                btn.setMargin(new Insets(0,0,0,0));//设置按钮内边界为零
-                btn.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
-                        JButton btn = (JButton)e.getSource();
-                        if (e.getButton() == MouseEvent.BUTTON1) {
-                            //左键操作
-                            leftClicked(btn);
-                        }else if (e.getButton() == MouseEvent.BUTTON3) {
-                            //右键操作
-                            rightClicked(btn);
-                        }
-                    }
-                });
-                btn.setOpaque(true);
-                btn.addActionListener(this); //不清楚有什么用
-                btns[i][j] = btn;
-                sweep.add(btn);//向Jpanel中添加按钮
-            }
-        }
-
-        //背景图片加入
-        Image image = sweeepbg.getImage();
-        Image smallImage = image.getScaledInstance(width,height,Image.SCALE_DEFAULT);
-        ImageIcon smallIcon = new ImageIcon(smallImage);
-        JLabel bgLabel = new JLabel(smallIcon);//背景的Label
-        bgLabel.setBounds(0,0,width,height);//设置背景Label的位置和大小
-        Container contain = this.getContentPane();
-
-
-        this.add(sweep);
-        this.add(p1Grade);
-        this.add(p2Grade);
-        this.add(p1mistake);
-        this.add(p2mistake);
-        this.add(coinLabel);
-        this.add(p1Pane);
-        this.add(p2Pane);
-        this.add(cheatbtn);
-        this.add(restarter);
-        this.add(labelt);
-        this.add(saveGame);
-        this.add(toIntergame);
-        this.add(p1name);
-        this.add(p2name);
-        this.add(bgLabel);
-
-        this.setTitle("双人对战扫雷");
-        timer.start();
-
-        this.setVisible(true);
-
     }
 
 
@@ -575,13 +351,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
             //展开雷区图案操作
             if(data[r][c] == LEICODE){
-//                //播放背景音乐
-//                try {
-//                    b2 = Applet.newAudioClip(file2.toURL());
-//                } catch (MalformedURLException malformedURLException) {
-//                    malformedURLException.printStackTrace();
-//                }
-//                b2.play();
                 unopened--;
                 p1mis++;//玩家1踩雷，失误数加1
                 p1grade--;//得分减一
@@ -593,13 +362,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                 checkWin();
             }else{
-//                //播放背景音乐
-//                try {
-//                    b1 = Applet.newAudioClip(file1.toURL());
-//                } catch (MalformedURLException malformedURLException) {
-//                    malformedURLException.printStackTrace();
-//                }
-//                b1.play();
                 openNum(btn,data[r][c]);
             }
         }else if(count < GameStat.at*2){//判定为玩家2的操作
@@ -609,17 +371,9 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
                 ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
                 coinLabel.setIcon(coinSmallIcon);//设置金币icon
-                coinLabel.setBounds(200,250,30,30);
-                count = 0;
+                coinLabel.setBounds(320,80,30,30);
             }
             if(data[r][c] == LEICODE){
-//                //播放背景音乐
-//                try {
-//                    b2 = Applet.newAudioClip(file2.toURL());
-//                } catch (MalformedURLException malformedURLException) {
-//                    malformedURLException.printStackTrace();
-//                }
-//                b2.play();
                 unopened--;
                 p2mis++;//玩家2踩雷，失误数加1
                 p2grade--;
@@ -631,13 +385,31 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
                 checkWin();
             }else{
-//                //播放背景音乐
-//                try {
-//                    b1 = Applet.newAudioClip(file1.toURL());
-//                } catch (MalformedURLException malformedURLException) {
-//                    malformedURLException.printStackTrace();
-//                }
-//                b1.play();
+
+                openNum(btn,data[r][c]);
+            }
+        }else if(count < GameStat.at*3){//判定为玩家三的回合
+            count++;
+            if(count == GameStat.at*3){
+                Image coinImage = coin.getImage();
+                Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                coinLabel.setBounds(200,250,30,30);
+                count = 0;
+            }
+            if(data[r][c] == LEICODE){
+                unopened--;
+                p3mis++;//玩家3踩雷，失误数加1
+                p3grade--;
+                p3mistake.setText("玩家3失误为 " + p3mis);
+                p3Grade.setText("玩家3得分为 " + p3grade);
+                Image image = mine.getImage();
+                Image smallImage = image.getScaledInstance(30, 30, Image.SCALE_FAST);
+                ImageIcon smallIcon = new ImageIcon(smallImage);
+                btn.setIcon(smallIcon);//设置按钮icon为暴雷图标
+                checkWin();
+            }else{
                 openNum(btn,data[r][c]);
             }
         }
@@ -652,15 +424,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                     //如果该旗子已开或不可用,则直接返回不做任何动作
                     if (buttonStat[i][j] == 1 || !btn.isEnabled())
                         return;
-
-//                    //播放背景音乐
-//                    try {
-//                        b1 = Applet.newAudioClip(file1.toURL());
-//                    } catch (MalformedURLException malformedURLException) {
-//                        malformedURLException.printStackTrace();
-//                    }
-//                    b1.play();
-
                     buttonStat[i][j] = 1;//无论怎样该格一定会被打开
                     //首先判定此次点击为哪位玩家的操作
                     if(count < GameStat.at){ //判定为玩家1的操作
