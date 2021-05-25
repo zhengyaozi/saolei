@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class selectplayer2 extends JFrame {
+public class selectplayer3 extends JFrame {
 
-   public static ChessboardConstructer2 game2;
+    public static ChessboardConstructer2 game2;
     JPanel c=new JPanel(new GridLayout(1,2));
 
     JPanel player2=new JPanel(new GridLayout(3,1));
@@ -33,10 +33,10 @@ public class selectplayer2 extends JFrame {
 
     JLabel finalplayertwo= new JLabel("请输入你的名字");
 
-    JTextField name2=new JTextField("player2");
+    JTextField name2=new JTextField("player3");
 
 
-    public selectplayer2() throws HeadlessException {
+    public selectplayer3() throws HeadlessException {
         super("请选择人物2");
         setBounds(250,250,700,500);
 
@@ -67,60 +67,57 @@ public class selectplayer2 extends JFrame {
         finish2.setOpaque(false);
 
         finish2.addActionListener(e -> {
-            GameStat.player2=name2.getText();
-            new TimeDialog().showDialog(new JFrame(), "玩家二设置名称成功！，可点击图片选择人物", 3);
-           player2.setVisible(false);
+            GameStat.player3=name2.getText();
+            new TimeDialog().showDialog(new JFrame(), "玩家三设置名称成功！，可点击图片选择人物", 3);
+            player2.setVisible(false);
         });
         playerpicture1.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player3==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
-                GameStat.p2Icon = p1;
+                GameStat.p3Icon = p1;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-               game2= new ChessboardConstructer2();
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture2.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player3==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
-                GameStat.p2Icon = p3;
-                new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-             if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
-             else if (GameStat.playerCnt==3)new selectplayer3();
+                GameStat.p3Icon = p3;
+                new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture3.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player3==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
-                GameStat.p2Icon = p3;
-                new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
-                else if (GameStat.playerCnt==3)new selectplayer3();
+                GameStat.p3Icon = p3;
+                new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture4.addActionListener(e -> {
             if (GameStat.player2==null){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
-                GameStat.p2Icon = p4;
-                new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
-                else if (GameStat.playerCnt==3)new selectplayer3();
+                GameStat.p3Icon = p4;
+                new TimeDialog().showDialog(new JFrame(), "玩家三设置人物成功！", 2);
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
 
 
 
-         c.add(selectpicture); c.add(player2);
+        c.add(selectpicture); c.add(player2);
         this.add(c);
 
         this.setVisible(true);
     }
 
     public static void main(String[] args) {
-        new selectplayer2();
+        new selectplayer3();
     }
 }
 

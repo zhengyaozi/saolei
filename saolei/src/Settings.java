@@ -6,11 +6,12 @@ class Settings<background> extends JFrame {
 
     private JPanel c1 = new JPanel(new GridLayout(1, 2));
     private JPanel c2 = new JPanel(new GridLayout(1, 4));
-    private JPanel c3 = new JPanel(new GridLayout(3, 2));
+    private JPanel c3 = new JPanel(new GridLayout(4, 2));
    private  JPanel c4= new  JPanel(new GridLayout());
     private JRadioButton dan = new JRadioButton("单人模式", true);
     private JRadioButton shuang = new JRadioButton("双人模式");
     private JRadioButton renji=new JRadioButton("人机对战");
+    private JRadioButton san=new JRadioButton("三人模式");
     private ButtonGroup playerCnt = new ButtonGroup();
 
     private JRadioButton easybtn = new JRadioButton("简单", true);
@@ -25,6 +26,9 @@ class Settings<background> extends JFrame {
     private JTextField zdyrow = new JTextField();
     private JLabel lei = new JLabel("你想要多少颗雷");
     private JTextField zdylei = new JTextField();
+    private JLabel at=new JLabel("回合次数");
+    private JTextField atnumber=new JTextField();
+
     private JButton finishbtn = new JButton("开始游戏吧");
 
 BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
@@ -34,6 +38,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         setBounds(300,200,700,500);
         dan.setOpaque(false);
         shuang.setOpaque(false);
+        san.setOpaque(false);
         easybtn.setOpaque(false);
         middlebtn.setOpaque(false);
         diffbtn.setOpaque(false);
@@ -42,6 +47,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         renji.setOpaque(false);
         playerCnt.add(dan);
         playerCnt.add(shuang);
+        playerCnt.add(san);
         playerCnt.add(renji);
         difficulty.add(easybtn);
         difficulty.add(middlebtn);
@@ -50,6 +56,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
 
         c1.add(dan);
         c1.add(shuang);
+        c1.add(san);
         c1.add(renji);
         c1.setOpaque(false);
 
@@ -65,6 +72,8 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         c3.add(zdyrow);
         c3.add(lei);
         c3.add(zdylei);
+        c3.add(at);
+        c3.add(atnumber);
         c3.setVisible(false);
         c3.setOpaque(false);
         c4.setVisible(false);
@@ -85,34 +94,38 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
             if (easybtn.isSelected()){ GameStat.mapcolumn=9;  GameStat.maprow=9; GameStat.maplei=10;}
             if (middlebtn.isSelected()){ GameStat.mapcolumn=16;  GameStat.maprow=16; GameStat.maplei=40;}
             if (diffbtn.isSelected()){ GameStat.mapcolumn=30;  GameStat.maprow=16; GameStat.maplei=99;}
-            int row=0; int col = 0;
+            int row=0; int col = 0;  int at1=0;
             if (byyourself.isSelected()) {
                 boolean result = true;
                 try {
                      col = Integer.parseInt(zdycolumn.getText());
                      row = Integer.parseInt(zdyrow.getText());
+                     at1=Integer.parseInt(atnumber.getText());
                 } catch (Exception ex) {
-                    new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西", 3);
+                    new TimeDialog().showDialog(new JFrame(), "输入了奇奇怪怪的东西", 2);
                     result = false;
                 }
                 if (result) {
                     if (Integer.parseInt(zdycolumn.getText()) > 30 || Integer.parseInt(zdycolumn.getText()) < 1 || Integer.parseInt(zdyrow.getText()) > 24
                             || Integer.parseInt(zdyrow.getText()) < 1 || Integer.parseInt(zdylei.getText()) > 0.5*col*row) {
-                        new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘和炸弹的限制", 2);
+                        new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘的规则", 2);
                         result=false;
                     } else {
                         GameStat.mapcolumn = Integer.parseInt(zdycolumn.getText());
                         GameStat.maprow = Integer.parseInt(zdyrow.getText());
                         GameStat.maplei = Integer.parseInt(zdyrow.getText());
-
+                        GameStat.at = Integer.parseInt(atnumber.getText());
                     }
                 }
             }
-         if (GameStat.mapcolumn!=0){if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
+         if (GameStat.mapcolumn!=0){
+             if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
             if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
                 Settings.this.dispose();}
-         if (renji.isSelected()) {    new selectplayer(); Settings.this.dispose(); }      }
+         if (renji.isSelected()) { GameStat.playerCnt = 2 ;new selectplayer(); Settings.this.dispose(); }
+         if (san.isSelected()){ GameStat.playerCnt = 3;  new selectplayer();Settings.this.dispose();}
+         }
         });
         setLocationRelativeTo(null);
         this.setVisible(true);
