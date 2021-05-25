@@ -16,6 +16,9 @@ public class WinPanel extends JFrame implements ActionListener {
     JButton toSetting = new JButton();//返回设置界面
     JLabel words = new JLabel();
 
+//    ImageIcon bg = new ImageIcon("panelbg.jpg");
+//    JLabel bgl = new JLabel();
+
     public static void main(String[] args) { new WinPanel("winner",GameStat.p1Icon); } //测试入口
 
     //平局构造方法
@@ -26,6 +29,13 @@ public class WinPanel extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+//        //设置背景
+//        Image Image = bg.getImage();
+//        Image smallImage = Image.getScaledInstance(600, 400, Image.SCALE_FAST);
+//        ImageIcon smallIcon = new ImageIcon(smallImage);
+//        bgl.setIcon(smallIcon);//设置icon
+//        bgl.setBounds(0,0,600,400);
 
         //设置顶头面板
         words.setText("平局");
@@ -75,6 +85,7 @@ public class WinPanel extends JFrame implements ActionListener {
         this.add(p2Picture);
         this.add(player1Name);
         this.add(player2Name);
+//        this.add(bgl);
         this.setVisible(true);
     }
 
