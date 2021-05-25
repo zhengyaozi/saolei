@@ -8,8 +8,8 @@ class GameStat {
     public static int mapcolumn=10;
     public static int maprow=10;
     public static int maplei=10;
-    public static String player1 =null;
-    public static String player2 = null;
+    public static String player1 = "Luffy";
+    public static String player2 = "Marco";
     public static ImageIcon p1Icon = new ImageIcon("Luffy.png");
     public static ImageIcon p2Icon = new ImageIcon("Marco.png");
     public static int at = 4;//玩家每回合行动次数 actiontime 默认为四次

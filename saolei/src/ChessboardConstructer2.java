@@ -24,8 +24,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     int count = 0; //用于计算回合进程
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
-    JButton restarter = new JButton();//重开一局的按钮
-    JButton saveGame = new JButton("保存游戏");
 
     //按钮音效
     AudioClip b1;
@@ -43,10 +41,10 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     public int p2grade = 0;//p2的成绩
     public int p1mis = 0;//p1的失误
     public int p2mis = 0;//p2的失误
-    JButton cheatbtn = new JButton();
-    Boolean cheatStat = false;//此时是否处在作弊状态
     int[][] buttonStat = new int[GameStat.maprow][GameStat.mapcolumn];//表示按钮的状态 0为未开 1为已开或已插旗 2为处于透视状态
     JButton[][] btns = new JButton[GameStat.maprow][GameStat.mapcolumn];//承装雷区的所有按钮
+    JLabel p1name = new JLabel(player1);
+    JLabel p2name = new JLabel(player2);
     JLabel p1Grade = new JLabel("玩家1得分为 " + p1grade);
     JLabel p1mistake = new JLabel("玩家1失误为 " + p1mis);
     JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
@@ -57,6 +55,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Timer timer = new Timer(1000,this); //用于计时
     int seconds = 0; //用于显示计时的秒数
     JLabel labelt = new JLabel("用时：" + seconds + "s"); //显示计时秒数的label
+
+    //作弊系统
+    JButton cheatbtn = new JButton();
+    Boolean cheatStat = false;//此时是否处在作弊状态
+
+    //功能按钮
+    JButton restarter = new JButton();//重开一局的按钮
+    JButton saveGame = new JButton("保存游戏");
 
     //图标管理
     ImageIcon Clicked = new ImageIcon("Clicked.png");
@@ -122,7 +128,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         });
 
         //保存游戏按钮
-        saveGame.setBounds(450,50,100,50);
+        saveGame.setBounds(width-350,50,100,50);
         saveGame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -156,6 +162,15 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p1mistake.setForeground(new Color(71, 61, 50));
         p1mistake.setBackground(new Color(154, 228, 241));
         p1mistake.setOpaque(true);
+        p1name.setText(player1);
+        p2name.setText(player2);
+        p1name.setBounds(50,250,100,30);
+        p1name.setBackground(new Color(154, 228, 241));
+        p1name.setOpaque(true);
+        p2name.setBounds(width-150,250,100,30);
+        p2name.setBackground(new Color(154, 228, 241));
+        p2name.setOpaque(true);
+
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
@@ -233,6 +248,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(restarter);
         this.add(labelt);
         this.add(saveGame);
+        this.add(p1name);
+        this.add(p2name);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
@@ -309,7 +326,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         });
 
         //保存游戏按钮
-        saveGame.setBounds(450,50,100,50);
+        saveGame.setBounds(width-350,50,100,50);
         saveGame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -342,6 +359,14 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p1mistake.setBackground(new Color(154, 228, 241));
         p1mistake.setText("玩家1失误为 " + p1mis);
         p1mistake.setOpaque(true);
+        p1name.setText(player1);
+        p2name.setText(player2);
+        p1name.setBounds(50,250,100,30);
+        p1name.setBackground(new Color(154, 228, 241));
+        p1name.setOpaque(true);
+        p2name.setBounds(width-150,250,100,30);
+        p2name.setBackground(new Color(154, 228, 241));
+        p2name.setOpaque(true);
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
         JPanel p2Pane=p2.PlayPane(width,250,height,2);
@@ -442,6 +467,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(restarter);
         this.add(labelt);
         this.add(saveGame);
+        this.add(p1name);
+        this.add(p2name);
         this.add(bgLabel);
 
         this.setTitle("双人对战扫雷");
