@@ -63,6 +63,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     //功能按钮
     JButton restarter = new JButton();//重开一局的按钮
     JButton saveGame = new JButton("保存游戏");
+    JButton toIntergame = new JButton("返回菜单栏");
 
     //图标管理
     ImageIcon Clicked = new ImageIcon("Clicked.png");
@@ -143,10 +144,20 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
             }
         });
 
+        //召唤菜单栏按钮
+        toIntergame.setBounds(width-250,20,100,30);
+        toIntergame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new intergame();
+            }
+        });
+
         //对number进行操作；
         addMine();
 
-        //添加计时器、代开、已开的头部面板
+        //添加计时器的头部面板
         setHeader();
 
         //玩家面板设置
@@ -248,6 +259,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(restarter);
         this.add(labelt);
         this.add(saveGame);
+        this.add(toIntergame);
         this.add(p1name);
         this.add(p2name);
         this.add(bgLabel);
@@ -338,6 +350,16 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
                 } catch (ClassNotFoundException classNotFoundException) {
                     classNotFoundException.printStackTrace();
                 }
+            }
+        });
+
+        //召唤菜单栏按钮
+        toIntergame.setBounds(width-250,20,100,30);
+        toIntergame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new intergame();
             }
         });
 
@@ -467,6 +489,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(restarter);
         this.add(labelt);
         this.add(saveGame);
+        this.add(toIntergame);
         this.add(p1name);
         this.add(p2name);
         this.add(bgLabel);
