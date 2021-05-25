@@ -68,8 +68,18 @@ public class intergame extends JFrame {
             ArrayList<ChessboardConstructer2> g= game.lgame;
                  for (int i=0;i<g.size();i++){
                      JButton j=new JButton("存档"+i);
+                     int finalI = i;
                      j.addActionListener(e1 -> {
                          //构造方法
+                         try {
+                              loadgame lg=new loadgame();
+                              ArrayList<ChessboardConstructer2> loadg= lg.lgame;
+                             new ChessboardConstructer2(loadg.get(finalI));
+                         } catch (IOException ioException) {
+                             ioException.printStackTrace();
+                         } catch (ClassNotFoundException classNotFoundException) {
+                             new TimeDialog().showDialog(new JFrame(), "读档出问题了", 2);
+                         }
                      });
                      p.add(j);
                  }
