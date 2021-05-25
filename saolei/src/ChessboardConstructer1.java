@@ -40,7 +40,7 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
     ImageIcon flag = new ImageIcon("flag.png");
 
 
-        int ROW = GameStat.maprow;
+    int ROW = GameStat.maprow;
     int COL = GameStat.mapcolumn;
 
     int[][] data = new int[ROW][COL];//存放数据
@@ -70,7 +70,6 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
         frame.setLocation(0, 0);
         float proportionW = screenWidth/fraWidth;
         float proportionH = screenHeight/fraHeight;
-
         modifyComponentSize(frame, proportionW,proportionH);
         frame.toFront();
         frame.setSize(12*COL+260, 12*ROW+460);
@@ -196,7 +195,6 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
                 btn.setOpaque(true);
                 btn.setBackground(new Color(244,183,113));
                 btn.addActionListener(this);
-                //JButton btn = new JButton(data[i][j] + "");
                 con.add(btn);
                 btns[i][j] = btn;
             }
@@ -254,6 +252,39 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
                     } else {
                         firstClick = false;
                         openCell(i, j);
+                        for(int r = 0;r < ROW;r++){
+                            for(int c = 0;c < COL;c++){
+                                if(r-1>=0 && !btns[r-1][c].isEnabled() && data[r-1][c] == 0){
+                                    btns[r][c].setIcon(null);
+                                    btns[r][c].setEnabled(false);
+                                    btns[r][c].setOpaque(true);
+                                    btns[r][c].setBackground(Color.GREEN);
+                                    btns[r][c].setText(data[r][c]+"");
+                                    addOpenCount();
+                                }else if(r+1<ROW && !btns[r+1][c].isEnabled() && data[r+1][c] == 0){
+                                    btns[r][c].setIcon(null);
+                                    btns[r][c].setEnabled(false);
+                                    btns[r][c].setOpaque(true);
+                                    btns[r][c].setBackground(Color.GREEN);
+                                    btns[r][c].setText(data[r][c]+"");
+                                    addOpenCount();
+                                }else if(c-1>=0 && !btns[r][c-1].isEnabled() && data[r][c-1] == 0){
+                                    btns[r][c].setIcon(null);
+                                    btns[r][c].setEnabled(false);
+                                    btns[r][c].setOpaque(true);
+                                    btns[r][c].setBackground(Color.GREEN);
+                                    btns[r][c].setText(data[r][c]+"");
+                                    addOpenCount();
+                                }else if(c+1<COL && !btns[r][c+1].isEnabled() && data[r][c+1] == 0){
+                                    btns[r][c].setIcon(null);
+                                    btns[r][c].setEnabled(false);
+                                    btns[r][c].setOpaque(true);
+                                    btns[r][c].setBackground(Color.GREEN);
+                                    btns[r][c].setText(data[r][c]+"");
+                                    addOpenCount();
+                                }
+                            }
+                        }
                         checkWin();
                     }
                     return;
@@ -407,6 +438,7 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
             if (i<ROW-1 && data[i+1][j] == 0) openCell(i+1, j);
             if (i<ROW-1 && j<COL-1 && data[i+1][j+1] == 0) openCell(i+1, j+1);
         }
+
     }
 
     //计算并设置“代开”与“已开”
