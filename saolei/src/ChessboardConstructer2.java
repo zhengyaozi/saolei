@@ -712,13 +712,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
 
     //每次开出雷后检查是否胜利
     private void checkWin() {
-        if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade)) {//p1获胜
+        if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade) || (unopened == 0 && p1grade == p2grade && p1mis < p2mis)) {//p1获胜
             new WinPanel(GameStat.player1,GameStat.p1Icon);
             dispose();
-        }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade)){//p2获胜
+        }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade) || (unopened == 0 && p1grade == p2grade && p2mis < p1mis)){//p2获胜
             new WinPanel(GameStat.player2,GameStat.p2Icon);
             dispose();
-        }else if(unopened == 0 && p1grade == p2grade){//平局
+        }else if(unopened == 0 && p1grade == p2grade && p1mis == p2mis){//平局
             new WinPanel();
             dispose();
         }
