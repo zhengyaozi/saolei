@@ -87,7 +87,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         bg.add(c);
         this.add(bg);
 //增加自定义监听器，选择自定义的时候会弹出设置界面
-        byyourself.addItemListener(e -> c3.setVisible(byyourself.isSelected()));
+        byyourself.addItemListener(e ->{ c3.setVisible(byyourself.isSelected()); if (dan.isSelected()){at.setVisible(false);atnumber.setVisible(false);}   });
         //点击开始游戏按钮
         finishbtn.addActionListener(e -> {
             //传输数据
@@ -107,7 +107,8 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
                 }
                 if (result) {
                     if (Integer.parseInt(zdycolumn.getText()) > 30 || Integer.parseInt(zdycolumn.getText()) < 1 || Integer.parseInt(zdyrow.getText()) > 24
-                            || Integer.parseInt(zdyrow.getText()) < 1 || Integer.parseInt(zdylei.getText()) > 0.5*col*row) {
+                            || Integer.parseInt(zdyrow.getText()) < 1 || Integer.parseInt(zdylei.getText()) > 0.5*col*row
+                            ||Integer.parseInt(atnumber.getText())>5||Integer.parseInt(atnumber.getText())<1) {
                         new TimeDialog().showDialog(new JFrame(), "不符合自定义棋盘的规则", 2);
                         result=false;
                     } else {

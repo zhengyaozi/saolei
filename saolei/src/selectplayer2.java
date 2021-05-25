@@ -72,7 +72,7 @@ public class selectplayer2 extends JFrame {
            player2.setVisible(false);
         });
         playerpicture1.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player2.equals("Marco")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p2Icon = p1;
@@ -81,7 +81,7 @@ public class selectplayer2 extends JFrame {
                 this.dispose();
             }  });
         playerpicture2.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player2.equals("Marco")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p2Icon = p3;
@@ -91,7 +91,7 @@ public class selectplayer2 extends JFrame {
                 this.dispose();
             }  });
         playerpicture3.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player2.equals("Marco")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p2Icon = p3;
@@ -101,7 +101,7 @@ public class selectplayer2 extends JFrame {
                 this.dispose();
             }  });
         playerpicture4.addActionListener(e -> {
-            if (GameStat.player2==null){
+            if (GameStat.player2.equals("Marco")){
                 new TimeDialog().showDialog(new JFrame(), "请设置名称", 2);
             }else {
                 GameStat.p2Icon = p4;
