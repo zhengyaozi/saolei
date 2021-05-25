@@ -49,7 +49,7 @@ public class intergame extends JFrame {
 
 
 
-        beginnew.addActionListener(e -> {new Settings(); this.dispose();});
+        beginnew.addActionListener(e -> {new story(); this.dispose();});
         loadold.addActionListener(e -> {
         JFrame f=new JFrame();
         JPanel p=new JPanel();
@@ -82,6 +82,7 @@ public class intergame extends JFrame {
                      p.add(j);
                  }
                  f.add(p);
+                 setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             if (g.size()!=0)f.setVisible(true);
         });
 
@@ -90,6 +91,7 @@ public class intergame extends JFrame {
  });
         bg.add(j);
         this.add(bg);
+        setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

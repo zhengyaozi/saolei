@@ -78,6 +78,7 @@ public class register extends JFrame {
         bg.add(r);
         this.add(bg);
         setVisible(true);
+        setLocationRelativeTo(null);
         setResizable(false);
     }
     //判断是否输入了数字之外的东西

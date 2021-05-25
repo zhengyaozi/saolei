@@ -47,7 +47,7 @@ public class AudioPlayDemo extends JFrame implements ActionListener{
 
         setTitle("音乐播放");
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //关闭窗口时退出程序
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //关闭窗口时退出程序
     }
 
     public void actionPerformed(ActionEvent event) {

@@ -10,6 +10,7 @@ class Settings<background> extends JFrame {
    private  JPanel c4= new  JPanel(new GridLayout());
     private JRadioButton dan = new JRadioButton("单人模式", true);
     private JRadioButton shuang = new JRadioButton("双人模式");
+    private JRadioButton renji=new JRadioButton("人机对战");
     private ButtonGroup playerCnt = new ButtonGroup();
 
     private JRadioButton easybtn = new JRadioButton("简单", true);
@@ -38,10 +39,10 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         diffbtn.setOpaque(false);
         byyourself.setOpaque(false);
         finishbtn.setOpaque(false);
-
+        renji.setOpaque(false);
         playerCnt.add(dan);
         playerCnt.add(shuang);
-
+        playerCnt.add(renji);
         difficulty.add(easybtn);
         difficulty.add(middlebtn);
         difficulty.add(diffbtn);
@@ -49,6 +50,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
 
         c1.add(dan);
         c1.add(shuang);
+        c1.add(renji);
         c1.setOpaque(false);
 
         c2.add(easybtn);
@@ -109,9 +111,10 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
          if (GameStat.mapcolumn!=0){if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
             if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
-                Settings.this.dispose();}}
+                Settings.this.dispose();}
+         if (renji.isSelected()) {    new selectplayer(); Settings.this.dispose(); }      }
         });
-
+        setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
