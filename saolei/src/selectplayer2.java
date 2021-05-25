@@ -14,10 +14,22 @@ public class selectplayer2 extends JFrame {
     ImageIcon p3=new ImageIcon("p3.png");
     ImageIcon p4=new ImageIcon("p4.png");
     JButton finish2=new JButton("确认");
-    JButton playerpicture1= new JButton(p1);
-    JButton playerpicture2= new JButton(p2);
-    JButton playerpicture3= new JButton(p3);
-    JButton playerpicture4= new JButton(p4);
+    Image Image = p1.getImage();
+    Image smallImage = Image.getScaledInstance(200, 200, Image.SCALE_FAST);
+    ImageIcon smallIcon = new ImageIcon(smallImage);
+    JButton playerpicture1= new JButton(smallIcon);
+    Image Image2 = p2.getImage();
+    Image smallImage2 = Image2.getScaledInstance(200, 200, Image.SCALE_FAST);
+    ImageIcon smallIcon2 = new ImageIcon(smallImage2);
+    JButton playerpicture2= new JButton(smallIcon2);
+    Image Image3 = p3.getImage();
+    Image smallImage3 = Image3.getScaledInstance(200, 200, Image.SCALE_FAST);
+    ImageIcon smallIcon3 = new ImageIcon(smallImage3);
+    JButton playerpicture3= new JButton(smallIcon3);
+    Image Image4 = p4.getImage();
+    Image smallImage4 = Image4.getScaledInstance(200, 200, Image.SCALE_FAST);
+    ImageIcon smallIcon4 = new ImageIcon(smallImage4);
+    JButton playerpicture4= new JButton(smallIcon4);
 
     JLabel finalplayertwo= new JLabel("请输入你的名字");
 
