@@ -14,16 +14,15 @@ public class intergame extends JFrame {
     JPanel j4=new JPanel(new GridLayout(1,1));
     JPanel j5=new JPanel(new GridLayout(1,1));
 
-    JPanel j7=new JPanel(new GridLayout(1,1));
     private JButton beginnew=new JButton("开始新的游戏");
     private JButton loadold=new JButton("读取存档");
     private  JButton setsound=new JButton("声音设置");
-    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("loadpicture.jpeg").getImage());
+    BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw1.gif").getImage());
 
     public  intergame(){
         super("请选择");
-        setBounds(300,200,400,500);
-
+        setBounds(300,200,800,450);
+     setResizable(false);
         j.setOpaque(false);
         j1.setOpaque(false);
         j2.setOpaque(false);
@@ -31,7 +30,7 @@ public class intergame extends JFrame {
         j4.setOpaque(false);
         j5.setOpaque(false);
 
-        j7.setOpaque(false);
+
         beginnew.setOpaque(false);
         loadold.setOpaque(false);
 
@@ -47,7 +46,7 @@ public class intergame extends JFrame {
         j.add(j2);
         j.add(j5);
         j.add(j3);
-        j.add(j7);
+
 
 
         beginnew.addActionListener(e -> {new Settings(); this.dispose();});
