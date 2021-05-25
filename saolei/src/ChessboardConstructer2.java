@@ -24,12 +24,6 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     Boolean firstClick = true;//该次点击是否为首次点击
     int unopened = LEICOUNT;//未打开的雷的数量
 
-    //按钮音效
-//    AudioClip b1;
-//    AudioClip b2;
-//    File file1 = new File("button1.wav");
-//    File file2 = new File("boom.wav");
-
 
     //玩家分数相关
     public String player1 = GameStat.player1;
@@ -97,7 +91,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.setLayout(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
+        JPanel sweep=new JPanel(new GridLayout(GameStat.maprow,GameStat.mapcolumn,0,0));
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
 
         //作弊按钮
@@ -306,7 +300,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.setLayout(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JPanel sweep=new JPanel(new GridLayout(GameStat.mapcolumn,GameStat.maprow,0,0));
+        JPanel sweep=new JPanel(new GridLayout(GameStat.maprow,GameStat.mapcolumn,0,0));
         sweep.setBounds((width-GameStat.mapcolumn*30)/2,(height-GameStat.maprow*30)-50,GameStat.mapcolumn*30,GameStat.maprow*30);  //面板的大小位置
 
         //作弊按钮
