@@ -10,11 +10,6 @@ public class TimeDialog {
 
     private int seconds;
 
-    /**
-     * @param jFrameOfButton 程序主窗口（按钮所在）
-     * @param message        对话框主体消息
-     * @param closeInSec     以秒记的自动关闭时间，可以提前按按钮关闭
-     */
     public void showDialog(JFrame jFrameOfButton, String message, int closeInSec) {
         dialog.setLayout(null);
 
@@ -29,7 +24,7 @@ public class TimeDialog {
         confirm.addActionListener(e -> TimeDialog.this.dialog.dispose());
 
         dialog = new JDialog(jFrameOfButton, true);
-        dialog.setTitle("给你" + seconds + "秒，看好啦");
+        dialog.setTitle(seconds+"秒后自动关闭");
         dialog.setLayout(new GridLayout(2, 1));
         dialog.add(label);
         dialog.add(confirm);
@@ -40,7 +35,7 @@ public class TimeDialog {
                 TimeDialog.this.dialog.dispose();
                 System.gc();
             } else {
-                dialog.setTitle("给你" + seconds + "秒，看好啦");
+                dialog.setTitle(seconds+"秒后自动关闭");
             }
         }, 1, 1, TimeUnit.SECONDS);
 
