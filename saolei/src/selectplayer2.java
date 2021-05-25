@@ -3,6 +3,8 @@ import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class selectplayer2 extends JFrame {
+
+   public static ChessboardConstructer2 game2;
     JPanel c=new JPanel(new GridLayout(1,2));
 
     JPanel player2=new JPanel(new GridLayout(3,1));
@@ -63,7 +65,7 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p1;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                new ChessboardConstructer2();
+               game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture2.addActionListener(e -> {
@@ -72,7 +74,7 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p3;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                new ChessboardConstructer2();
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture3.addActionListener(e -> {
@@ -81,7 +83,7 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p3;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                new ChessboardConstructer2();
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
         playerpicture4.addActionListener(e -> {
@@ -90,7 +92,7 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p4;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-                new ChessboardConstructer2() ;
+                game2= new ChessboardConstructer2();
                 this.dispose();
             }  });
 

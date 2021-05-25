@@ -6,12 +6,12 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class loadgame {
-    ArrayList<ChessboardConstructer1> lgame=new ArrayList<>();
+    ArrayList<ChessboardConstructer2> lgame=new ArrayList<>();
     public loadgame() throws IOException, ClassNotFoundException {
         try {
             ObjectInputStream ois1=new ObjectInputStream(new FileInputStream("oos.txt"));
 
-            lgame=(ArrayList<ChessboardConstructer1>)ois1.readObject();
+            lgame=(ArrayList<ChessboardConstructer2>)ois1.readObject();
             ois1.close();
         } catch (IOException FileNotFoundException){
             new TimeDialog().showDialog(new JFrame(), "没有找到存档", 3);

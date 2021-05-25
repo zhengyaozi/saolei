@@ -7,19 +7,20 @@ public class savegame {
       try {
           ObjectInputStream ois=new ObjectInputStream(new FileInputStream("oos.txt"));
 
-        ArrayList<ChessboardConstructer1> oldchessbroad=(ArrayList<ChessboardConstructer1>)ois.readObject();
+        ArrayList<ChessboardConstructer2> oldchessbroad=(ArrayList<ChessboardConstructer2>)ois.readObject();
         ois.close();
-        ArrayList<ChessboardConstructer1> loadchessbroad=oldchessbroad;
+        ArrayList<ChessboardConstructer2> loadchessbroad=oldchessbroad;
         ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("oos.txt"));
 
-        loadchessbroad.add(begingame.game);
+        loadchessbroad.add(selectplayer2.game2);
         oos.writeObject(loadchessbroad);
 
         oos.close();}catch (IOException FileNotFoundException){
-          ArrayList<ChessboardConstructer1> loadchessbroad=new ArrayList<>();
+          ArrayList<ChessboardConstructer2> loadchessbroad=new ArrayList<>();
           ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("oos.txt"));
 
-          loadchessbroad.add(begingame.game);
+          loadchessbroad.add
+                  (selectplayer2.game2);
           oos.writeObject(loadchessbroad);
 
           oos.close();

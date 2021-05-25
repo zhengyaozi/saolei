@@ -65,7 +65,7 @@ public class intergame extends JFrame {
             } catch (ClassNotFoundException classNotFoundException) {
                 classNotFoundException.printStackTrace();
             }
-            ArrayList<ChessboardConstructer1> g= game.lgame;
+            ArrayList<ChessboardConstructer2> g= game.lgame;
                  for (int i=0;i<g.size();i++){
                      JButton j=new JButton("存档"+i);
                      j.addActionListener(e1 -> {
@@ -90,7 +90,7 @@ public class intergame extends JFrame {
  setsound.addActionListener(new ActionListener() {
      @Override
      public void actionPerformed(ActionEvent e) {
-         
+
      }
  });
         bg.add(j);
