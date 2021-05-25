@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Random;
-
 public class ChessboardConstructer2 extends JFrame implements ActionListener{
     String boardName;
     private static final long serialVersionUID = 5;
