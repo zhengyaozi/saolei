@@ -104,7 +104,7 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
         frame.toFront();
         frame.setSize(12*COL+260, 12*ROW+460);
         frame.setResizable(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
         setHeader();
@@ -365,6 +365,7 @@ public class ChessboardConstructer1 implements ActionListener,Chessboard, Serial
         JButton btn = (JButton)e.getSource();
         if(btn.equals(bannerBtn)) {
             restart();
+            new intergame();
             return;
         }
     }
