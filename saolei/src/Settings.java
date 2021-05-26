@@ -87,7 +87,7 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
         bg.add(c);
         this.add(bg);
 //增加自定义监听器，选择自定义的时候会弹出设置界面
-        byyourself.addItemListener(e ->{ c3.setVisible(byyourself.isSelected()); if (dan.isSelected()){at.setVisible(false);atnumber.setVisible(false);}   });
+        byyourself.addItemListener(e ->c3.setVisible(byyourself.isSelected()));
         //点击开始游戏按钮
         finishbtn.addActionListener(e -> {
             //传输数据
@@ -120,12 +120,12 @@ BackgroundPanel bg=new BackgroundPanel(new ImageIcon("hzw3.gif").getImage());
                     }
                 }
             }
-         if (GameStat.mapcolumn!=5){
+         if (GameStat.mapcolumn!=8){
              if(dan.isSelected()){ GameStat.playerCnt = 1; new ChessboardConstructer1();
                 Settings.this.dispose();}
             if (shuang.isSelected()){ GameStat.playerCnt = 2; new selectplayer();
                 Settings.this.dispose();}
-         if (renji.isSelected()) { GameStat.playerCnt = 2 ;new selectplayer(); Settings.this.dispose(); }
+         if (renji.isSelected()) { GameStat.playerCnt = 1 ;new selectplayer(); Settings.this.dispose(); }
          if (san.isSelected()){ GameStat.playerCnt = 3;  new selectplayer();Settings.this.dispose();}
          }
         });

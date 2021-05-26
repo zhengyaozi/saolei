@@ -77,7 +77,9 @@ public class selectplayer2 extends JFrame {
             }else {
                 GameStat.p2Icon = p1;
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
-               game2= new ChessboardConstructer2();
+                if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
+                else if (GameStat.playerCnt==3)new selectplayer3();
+                else new ChessboardConstructer3();
                 this.dispose();
             }  });
         playerpicture2.addActionListener(e -> {
@@ -88,6 +90,7 @@ public class selectplayer2 extends JFrame {
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
              if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
              else if (GameStat.playerCnt==3)new selectplayer3();
+             else new ChessboardConstructer3();
                 this.dispose();
             }  });
         playerpicture3.addActionListener(e -> {
@@ -98,6 +101,7 @@ public class selectplayer2 extends JFrame {
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
                 if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
                 else if (GameStat.playerCnt==3)new selectplayer3();
+                else new ChessboardConstructer3();
                 this.dispose();
             }  });
         playerpicture4.addActionListener(e -> {
@@ -108,6 +112,7 @@ public class selectplayer2 extends JFrame {
                 new TimeDialog().showDialog(new JFrame(), "玩家二设置人物成功！", 2);
                 if (GameStat.playerCnt==2)  game2= new ChessboardConstructer2();
                 else if (GameStat.playerCnt==3)new selectplayer3();
+                else new ChessboardConstructer3();
                 this.dispose();
             }  });
 
