@@ -237,7 +237,7 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         ImageIcon smallIcon = new ImageIcon(smallImage);
         JLabel bgLabel = new JLabel(smallIcon);//背景的Label
         bgLabel.setBounds(0,0,width,height);//设置背景Label的位置和大小
-        Container contain = this.getContentPane();
+//        Container contain = this.getContentPane();
 
 
         this.add(sweep);
