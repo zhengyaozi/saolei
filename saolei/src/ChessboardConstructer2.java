@@ -43,11 +43,16 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     JLabel p2Grade = new JLabel("玩家2得分为 " + p2grade);
     JLabel p2mistake = new JLabel("玩家2失误为 " + p2mis);
     JLabel coinLabel = new JLabel();
+    JLabel p1jifen = new JLabel("玩家一积分 " + GameStat.p1jifen);
+    JLabel p2jifen = new JLabel("玩家二积分 " + GameStat.p2jifen);
 
     //计时系统
     Timer timer = new Timer(1000,this); //用于计时
+    Timer timer1 = new Timer(1000,this);//回合计时切换
+    int seconds1 = 0;//回合计时切换
     int seconds = 0; //用于显示计时的秒数
     JLabel labelt = new JLabel("用时：" + seconds + "s"); //显示计时秒数的label
+    JLabel labelt1 = new JLabel("回合计时： " + (30-seconds1) + "s");
 
     //作弊系统
     JButton cheatbtn = new JButton();
@@ -171,9 +176,12 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p1name.setBounds(50,250,100,30);
         p1name.setBackground(new Color(154, 228, 241));
         p1name.setOpaque(true);
-        p2name.setBounds(width-150,250,100,30);
-        p2name.setBackground(new Color(154, 228, 241));
-        p2name.setOpaque(true);
+        p1jifen.setBounds(50,200,100,30);
+        p1jifen.setForeground(new Color(71, 61, 50));
+        p1jifen.setBackground(new Color(154, 228, 241));
+        p1jifen.setOpaque(true);
+
+
 
 
         Player p2=new Player(GameStat.player2, GameStat.p2Icon);
@@ -188,6 +196,13 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         p2mistake.setForeground(new Color(71, 61, 50));
         p2mistake.setBackground(new Color(154, 228, 241));
         p2mistake.setOpaque(true);
+        p2name.setBounds(width-150,250,100,30);
+        p2name.setBackground(new Color(154, 228, 241));
+        p2name.setOpaque(true);
+        p2jifen.setBounds(width-150,200,100,30);
+        p2jifen.setForeground(new Color(71, 61, 50));
+        p2jifen.setBackground(new Color(154, 228, 241));
+        p2jifen.setOpaque(true);
 
         //回合指示器硬币
         Image coinImage = coin.getImage();
@@ -245,12 +260,15 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         this.add(p2Grade);
         this.add(p1mistake);
         this.add(p2mistake);
+        this.add(p1jifen);
+        this.add(p2jifen);
         this.add(coinLabel);
         this.add(p1Pane);
         this.add(p2Pane);
         this.add(cheatbtn);
         this.add(restarter);
         this.add(labelt);
+        this.add(labelt1);
         this.add(saveGame);
         this.add(toIntergame);
         this.add(p1name);
@@ -714,9 +732,11 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     private void checkWin() {
         if(p1grade-p2grade > unopened || (unopened == 0 && p1grade > p2grade) || (unopened == 0 && p1grade == p2grade && p1mis < p2mis)) {//p1获胜
             new WinPanel(GameStat.player1,GameStat.p1Icon);
+            GameStat.p1jifen++;
             dispose();
         }else if(p2grade-p1grade > unopened || (unopened == 0 && p2grade > p1grade) || (unopened == 0 && p1grade == p2grade && p2mis < p1mis)){//p2获胜
             new WinPanel(GameStat.player2,GameStat.p2Icon);
+            GameStat.p2jifen++;
             dispose();
         }else if(unopened == 0 && p1grade == p2grade && p1mis == p2mis){//平局
             new WinPanel();
@@ -777,6 +797,8 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
     private void setHeader() {
         labelt.setBounds(0,0,100,50);
         labelt.setText("用时： " + seconds + "s");
+        labelt1.setBounds(0,50,100,50);
+        labelt1.setText("回合计时： " + (30-seconds1) + "s");
         //待编写，将代开已开以及计时加入整个面板
     }
 
@@ -832,10 +854,33 @@ public class ChessboardConstructer2 extends JFrame implements ActionListener{
         //时钟计时
         if(e.getSource() instanceof Timer) {
             seconds++;
+            seconds1++;
             labelt.setText("用时：" + seconds + "s");
+            labelt1.setText("回合计时： " + (30-seconds1) + "s");
+            if(seconds1 == 30){
+                seconds1 = 0;
+                if(count < GameStat.at){
+                    count = GameStat.at;
+                    Image coinImage = coin.getImage();
+                    Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                    ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                    coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                    coinLabel.setBounds(this.getWidth()-230,250,30,30);
+                }else if(count < GameStat.at*2){
+                    count = 0;
+                    Image coinImage = coin.getImage();
+                    Image coinSmallImage = coinImage.getScaledInstance(30, 30, Image.SCALE_FAST);
+                    ImageIcon coinSmallIcon = new ImageIcon(coinSmallImage);
+                    coinLabel.setIcon(coinSmallIcon);//设置金币icon
+                    coinLabel.setBounds(200,250,30,30);
+                }
+            }
             timer.start();
             return;
         }
+
+        //回合计时切换
+
     }
 
     private void cheat() {

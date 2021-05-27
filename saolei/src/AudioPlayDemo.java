@@ -1,7 +1,6 @@
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.*;
 
 import javax.swing.*;
 import java.io.File;
@@ -12,9 +11,9 @@ public class AudioPlayDemo extends JFrame implements ActionListener{
     AudioClip sound1;
     AudioClip chosenClip;
 
-    JButton playButton = new JButton("播放");
-    JButton loopButton = new JButton("循环播放");
-    JButton stopButton = new JButton("停止");
+    JButton playMusicButton = new JButton("播放");
+    JButton loopMusicButton = new JButton("循环播放");
+    JButton stopMusicButton = new JButton("停止");
     JLabel status = new JLabel("");
     JPanel controlPanel = new JPanel();
     Container container = getContentPane();
@@ -30,14 +29,14 @@ public class AudioPlayDemo extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 
-        playButton.addActionListener(this);
-        loopButton.addActionListener(this);
-        stopButton.addActionListener(this);
-        stopButton.setEnabled(false);
+        playMusicButton.addActionListener(this);
+        loopMusicButton.addActionListener(this);
+        stopMusicButton.addActionListener(this);
+        stopMusicButton.setEnabled(false);
 
-        controlPanel.add(playButton);
-        controlPanel.add(loopButton);
-        controlPanel.add(stopButton);
+        controlPanel.add(playMusicButton);
+        controlPanel.add(loopMusicButton);
+        controlPanel.add(stopMusicButton);
 
         container.add(controlPanel, BorderLayout.CENTER);
         container.add(status, BorderLayout.SOUTH);
@@ -57,29 +56,29 @@ public class AudioPlayDemo extends JFrame implements ActionListener{
         }
         Object source = event.getSource(); //获取用户洗涤激活的按钮
 
-        if (source == playButton ) {
-            stopButton.setEnabled(true);
-            loopButton.setEnabled(true);
+        if (source == playMusicButton) {
+            stopMusicButton.setEnabled(true);
+            loopMusicButton.setEnabled(true);
             chosenClip.play();
             status.setText("正在播放");
         }
 
-        if (source == loopButton) {
+        if (source == loopMusicButton) {
             looping = true;
             chosenClip.loop();
-            loopButton.setEnabled(false);
-            stopButton.setEnabled(true);
+            loopMusicButton.setEnabled(false);
+            stopMusicButton.setEnabled(true);
             status.setText("正在循环播放");
         }
-        if (source == stopButton) {
+        if (source == stopMusicButton) {
             if (looping) {
                 looping = false;
                 chosenClip.stop();
-                loopButton.setEnabled(true);
+                loopMusicButton.setEnabled(true);
             } else {
                 chosenClip.stop();
             }
-            stopButton.setEnabled(false);
+            stopMusicButton.setEnabled(false);
             status.setText("停止播放");
         }
     }

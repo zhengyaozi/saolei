@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="MineSweeper5_18:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/MineSweeper5_18_jar</output-path>
+  <artifact type="jar" name="MineSweeper5_18:jar3">
+    <output-path>$PROJECT_DIR$/out/artifacts/MineSweeper5_18_jar3</output-path>
     <root id="archive" name="MineSweeper5_18.jar">
       <element id="module-output" name="MineSweeper5_18" />
     </root>

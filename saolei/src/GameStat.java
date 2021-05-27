@@ -6,9 +6,9 @@ class GameStat {
     public static ArrayList<String> passwd =new ArrayList<String>();
     public static int playerCnt=1;
 
-    public static int mapcolumn=8;
-    public static int maprow=8;
-    public static int maplei=8;
+    public static int mapcolumn=9;
+    public static int maprow=9;
+    public static int maplei=9;
 
 
     public static String player1 = "Luffy";
@@ -17,5 +17,7 @@ class GameStat {
     public static ImageIcon p1Icon = new ImageIcon("p1.png");
     public static ImageIcon p2Icon = new ImageIcon("Marco.png");
     public static ImageIcon p3Icon = new ImageIcon("p2.png");
+    public static int p1jifen = 0;
+    public static int p2jifen = 0;
     public static int at = 4;//玩家每回合行动次数 actiontime 默认为四次
 }
